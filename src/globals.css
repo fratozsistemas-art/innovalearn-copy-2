@@ -1,0 +1,71 @@
+css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Screen Reader Only - texto visível apenas para screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Indicador de foco para navegação por teclado */
+body.using-keyboard *:focus {
+  outline: 3px solid var(--primary-teal);
+  outline-offset: 2px;
+}
+
+/* Remover outline quando usando mouse */
+body:not(.using-keyboard) *:focus {
+  outline: none;
+}
+
+/* Skip to main content link (acessibilidade) */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1em;
+  background-color: var(--primary-teal);
+  color: white;
+  text-decoration: none;
+}
+
+.skip-to-main:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1em;
+}
+
+/* Respeitar preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Melhorar contraste em modo de alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-teal: #008080;
+    --primary-navy: #1a1a2e;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+  
+  button, a {
+    border: 2px solid currentColor !important;
+  }
+}
