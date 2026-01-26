@@ -1,5 +1,5 @@
 import { base44 } from '@/api/base44Client';
-import { searchYouTubeVideos, calculateYouTubeQualityScore } from './YouTubeAPIClient';
+import { searchYouTubeVideos } from './YouTubeAPIClient';
 import { evaluateResourceQuality, calculateVARKProfile, detectBias } from './LLMQualityScorer';
 
 /**
@@ -98,8 +98,9 @@ export async function runAutoCurationPipeline() {
         
         // 3.4 Score YouTube (se aplicável)
         let youtubeScore = null;
-        if (resource.source === 'youtube' && resource.viewCount) {
-          youtubeScore = calculateYouTubeQualityScore(resource);
+        if (resource.source === 'youtube') {
+          // Usar o score já calculado do recurso
+          youtubeScore = { score: resource.auto_quality_score || 75 };
           console.log(`   └─ YouTube Score: ${youtubeScore.score}/100`);
         }
         
