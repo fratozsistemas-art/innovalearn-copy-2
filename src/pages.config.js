@@ -1,153 +1,153 @@
-import Dashboard from './pages/Dashboard';
-import Courses from './pages/Courses';
-import Assignments from './pages/Assignments';
-import Schedule from './pages/Schedule';
-import Resources from './pages/Resources';
-import Profile from './pages/Profile';
-import Onboarding from './pages/Onboarding';
-import CourseStructure from './pages/CourseStructure';
-import Analytics from './pages/Analytics';
 import AIEthics from './pages/AIEthics';
-import ContentGaps from './pages/ContentGaps';
-import Gamification from './pages/Gamification';
-import Discovery from './pages/Discovery';
-import DiscoveryProject from './pages/DiscoveryProject';
-import Pioneer from './pages/Pioneer';
-import Challenger from './pages/Challenger';
-import Syllabus from './pages/Syllabus';
-import CuriosityCourse from './pages/CuriosityCourse';
-import DiscoveryCourse from './pages/DiscoveryCourse';
-import PioneerCourse from './pages/PioneerCourse';
-import ChallengerCourse from './pages/ChallengerCourse';
-import LessonView from './pages/LessonView';
-import ContentGapAnalysis from './pages/ContentGapAnalysis';
-import TeacherTraining from './pages/TeacherTraining';
-import ClassManagement from './pages/ClassManagement';
-import AdminOperations from './pages/AdminOperations';
-import ResourcesDashboard from './pages/ResourcesDashboard';
-import Documentation from './pages/Documentation';
-import ModuleView from './pages/ModuleView';
-import EnvironmentDocs from './pages/EnvironmentDocs';
-import TeacherLessonTraining from './pages/TeacherLessonTraining';
-import TeacherCertificationDashboard from './pages/TeacherCertificationDashboard';
-import TeacherCertificationCourse from './pages/TeacherCertificationCourse';
-import TeacherLessonPage from './pages/TeacherLessonPage';
 import AIIntegrationDocs from './pages/AIIntegrationDocs';
-import SecurityDocs from './pages/SecurityDocs';
-import DataVerification from './pages/DataVerification';
-import ResourcesVerification from './pages/ResourcesVerification';
+import AILearningCoach from './pages/AILearningCoach';
+import AIRecommendationReviewDocs from './pages/AIRecommendationReviewDocs';
+import AccessAudit from './pages/AccessAudit';
+import AdaptiveLearningPath from './pages/AdaptiveLearningPath';
+import AdminOperations from './pages/AdminOperations';
+import Analytics from './pages/Analytics';
+import AssignmentGenerator from './pages/AssignmentGenerator';
+import Assignments from './pages/Assignments';
+import AutoCurationDashboard from './pages/AutoCurationDashboard';
+import BartleAssessment from './pages/BartleAssessment';
+import Challenger from './pages/Challenger';
+import ChallengerCourse from './pages/ChallengerCourse';
+import ChurnPredictionGuide from './pages/ChurnPredictionGuide';
+import ClassManagement from './pages/ClassManagement';
+import ClassroomAnalytics from './pages/ClassroomAnalytics';
 import CodeReview from './pages/CodeReview';
-import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
+import ComprehensiveAssessment from './pages/ComprehensiveAssessment';
+import ContentGapAnalysis from './pages/ContentGapAnalysis';
+import ContentGaps from './pages/ContentGaps';
+import ContentSprintDashboard from './pages/ContentSprintDashboard';
+import CourseStructure from './pages/CourseStructure';
+import Courses from './pages/Courses';
+import CuriosityCourse from './pages/CuriosityCourse';
+import CurriculumCriticalReview from './pages/CurriculumCriticalReview';
+import Dashboard from './pages/Dashboard';
+import DataVerification from './pages/DataVerification';
+import DataVisualization from './pages/DataVisualization';
+import DebugDashboard from './pages/DebugDashboard';
+import Discovery from './pages/Discovery';
+import DiscoveryCourse from './pages/DiscoveryCourse';
+import DiscoveryProject from './pages/DiscoveryProject';
+import Documentation from './pages/Documentation';
 import DocumentationADR from './pages/DocumentationADR';
 import DocumentationDeveloper from './pages/DocumentationDeveloper';
-import DebugDashboard from './pages/DebugDashboard';
-import SystemHealth from './pages/SystemHealth';
-import NetworkDiagnostic from './pages/NetworkDiagnostic';
-import VARKAnalytics from './pages/VARKAnalytics';
-import TeacherFeedbackReview from './pages/TeacherFeedbackReview';
 import EarlyWarningDashboard from './pages/EarlyWarningDashboard';
-import AdaptiveLearningPath from './pages/AdaptiveLearningPath';
-import PlatformStatus from './pages/PlatformStatus';
-import GapsDemonstration from './pages/GapsDemonstration';
-import MotivationalAssessment from './pages/MotivationalAssessment';
+import EnvironmentDocs from './pages/EnvironmentDocs';
 import FratozDashboard from './pages/FratozDashboard';
-import TenantDashboard from './pages/TenantDashboard';
-import AutoCurationDashboard from './pages/AutoCurationDashboard';
-import RoadmapQ1 from './pages/RoadmapQ1';
-import BartleAssessment from './pages/BartleAssessment';
-import StrategicPivot from './pages/StrategicPivot';
-import ContentSprintDashboard from './pages/ContentSprintDashboard';
-import ResourceValidation from './pages/ResourceValidation';
-import PlatformComparison from './pages/PlatformComparison';
-import AccessAudit from './pages/AccessAudit';
-import AssignmentGenerator from './pages/AssignmentGenerator';
-import ClassroomAnalytics from './pages/ClassroomAnalytics';
-import SecretsManagement from './pages/SecretsManagement';
-import DataVisualization from './pages/DataVisualization';
-import AILearningCoach from './pages/AILearningCoach';
-import TeacherDashboard from './pages/TeacherDashboard';
-import ComprehensiveAssessment from './pages/ComprehensiveAssessment';
+import Gamification from './pages/Gamification';
+import GapsDemonstration from './pages/GapsDemonstration';
+import LessonView from './pages/LessonView';
+import ModuleView from './pages/ModuleView';
+import MotivationalAssessment from './pages/MotivationalAssessment';
+import NetworkDiagnostic from './pages/NetworkDiagnostic';
+import Onboarding from './pages/Onboarding';
 import ParentPortal from './pages/ParentPortal';
-import ChurnPredictionGuide from './pages/ChurnPredictionGuide';
-import AIRecommendationReviewDocs from './pages/AIRecommendationReviewDocs';
-import CurriculumCriticalReview from './pages/CurriculumCriticalReview';
+import Pioneer from './pages/Pioneer';
+import PioneerCourse from './pages/PioneerCourse';
+import PlatformComparison from './pages/PlatformComparison';
+import PlatformStatus from './pages/PlatformStatus';
+import Profile from './pages/Profile';
+import ResourceValidation from './pages/ResourceValidation';
+import Resources from './pages/Resources';
+import ResourcesDashboard from './pages/ResourcesDashboard';
+import ResourcesVerification from './pages/ResourcesVerification';
+import RoadmapQ1 from './pages/RoadmapQ1';
+import Schedule from './pages/Schedule';
+import SecretsManagement from './pages/SecretsManagement';
+import SecurityDocs from './pages/SecurityDocs';
+import StrategicPivot from './pages/StrategicPivot';
+import Syllabus from './pages/Syllabus';
+import SystemHealth from './pages/SystemHealth';
+import TeacherCertificationCourse from './pages/TeacherCertificationCourse';
+import TeacherCertificationDashboard from './pages/TeacherCertificationDashboard';
+import TeacherDashboard from './pages/TeacherDashboard';
+import TeacherFeedbackReview from './pages/TeacherFeedbackReview';
+import TeacherLessonPage from './pages/TeacherLessonPage';
+import TeacherLessonTraining from './pages/TeacherLessonTraining';
+import TeacherTraining from './pages/TeacherTraining';
+import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
+import TenantDashboard from './pages/TenantDashboard';
+import VARKAnalytics from './pages/VARKAnalytics';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "Courses": Courses,
-    "Assignments": Assignments,
-    "Schedule": Schedule,
-    "Resources": Resources,
-    "Profile": Profile,
-    "Onboarding": Onboarding,
-    "CourseStructure": CourseStructure,
-    "Analytics": Analytics,
     "AIEthics": AIEthics,
-    "ContentGaps": ContentGaps,
-    "Gamification": Gamification,
-    "Discovery": Discovery,
-    "DiscoveryProject": DiscoveryProject,
-    "Pioneer": Pioneer,
-    "Challenger": Challenger,
-    "Syllabus": Syllabus,
-    "CuriosityCourse": CuriosityCourse,
-    "DiscoveryCourse": DiscoveryCourse,
-    "PioneerCourse": PioneerCourse,
-    "ChallengerCourse": ChallengerCourse,
-    "LessonView": LessonView,
-    "ContentGapAnalysis": ContentGapAnalysis,
-    "TeacherTraining": TeacherTraining,
-    "ClassManagement": ClassManagement,
-    "AdminOperations": AdminOperations,
-    "ResourcesDashboard": ResourcesDashboard,
-    "Documentation": Documentation,
-    "ModuleView": ModuleView,
-    "EnvironmentDocs": EnvironmentDocs,
-    "TeacherLessonTraining": TeacherLessonTraining,
-    "TeacherCertificationDashboard": TeacherCertificationDashboard,
-    "TeacherCertificationCourse": TeacherCertificationCourse,
-    "TeacherLessonPage": TeacherLessonPage,
     "AIIntegrationDocs": AIIntegrationDocs,
-    "SecurityDocs": SecurityDocs,
-    "DataVerification": DataVerification,
-    "ResourcesVerification": ResourcesVerification,
+    "AILearningCoach": AILearningCoach,
+    "AIRecommendationReviewDocs": AIRecommendationReviewDocs,
+    "AccessAudit": AccessAudit,
+    "AdaptiveLearningPath": AdaptiveLearningPath,
+    "AdminOperations": AdminOperations,
+    "Analytics": Analytics,
+    "AssignmentGenerator": AssignmentGenerator,
+    "Assignments": Assignments,
+    "AutoCurationDashboard": AutoCurationDashboard,
+    "BartleAssessment": BartleAssessment,
+    "Challenger": Challenger,
+    "ChallengerCourse": ChallengerCourse,
+    "ChurnPredictionGuide": ChurnPredictionGuide,
+    "ClassManagement": ClassManagement,
+    "ClassroomAnalytics": ClassroomAnalytics,
     "CodeReview": CodeReview,
-    "TechnicalGapsAnalysis": TechnicalGapsAnalysis,
+    "ComprehensiveAssessment": ComprehensiveAssessment,
+    "ContentGapAnalysis": ContentGapAnalysis,
+    "ContentGaps": ContentGaps,
+    "ContentSprintDashboard": ContentSprintDashboard,
+    "CourseStructure": CourseStructure,
+    "Courses": Courses,
+    "CuriosityCourse": CuriosityCourse,
+    "CurriculumCriticalReview": CurriculumCriticalReview,
+    "Dashboard": Dashboard,
+    "DataVerification": DataVerification,
+    "DataVisualization": DataVisualization,
+    "DebugDashboard": DebugDashboard,
+    "Discovery": Discovery,
+    "DiscoveryCourse": DiscoveryCourse,
+    "DiscoveryProject": DiscoveryProject,
+    "Documentation": Documentation,
     "DocumentationADR": DocumentationADR,
     "DocumentationDeveloper": DocumentationDeveloper,
-    "DebugDashboard": DebugDashboard,
-    "SystemHealth": SystemHealth,
-    "NetworkDiagnostic": NetworkDiagnostic,
-    "VARKAnalytics": VARKAnalytics,
-    "TeacherFeedbackReview": TeacherFeedbackReview,
     "EarlyWarningDashboard": EarlyWarningDashboard,
-    "AdaptiveLearningPath": AdaptiveLearningPath,
-    "PlatformStatus": PlatformStatus,
-    "GapsDemonstration": GapsDemonstration,
-    "MotivationalAssessment": MotivationalAssessment,
+    "EnvironmentDocs": EnvironmentDocs,
     "FratozDashboard": FratozDashboard,
-    "TenantDashboard": TenantDashboard,
-    "AutoCurationDashboard": AutoCurationDashboard,
-    "RoadmapQ1": RoadmapQ1,
-    "BartleAssessment": BartleAssessment,
-    "StrategicPivot": StrategicPivot,
-    "ContentSprintDashboard": ContentSprintDashboard,
-    "ResourceValidation": ResourceValidation,
-    "PlatformComparison": PlatformComparison,
-    "AccessAudit": AccessAudit,
-    "AssignmentGenerator": AssignmentGenerator,
-    "ClassroomAnalytics": ClassroomAnalytics,
-    "SecretsManagement": SecretsManagement,
-    "DataVisualization": DataVisualization,
-    "AILearningCoach": AILearningCoach,
-    "TeacherDashboard": TeacherDashboard,
-    "ComprehensiveAssessment": ComprehensiveAssessment,
+    "Gamification": Gamification,
+    "GapsDemonstration": GapsDemonstration,
+    "LessonView": LessonView,
+    "ModuleView": ModuleView,
+    "MotivationalAssessment": MotivationalAssessment,
+    "NetworkDiagnostic": NetworkDiagnostic,
+    "Onboarding": Onboarding,
     "ParentPortal": ParentPortal,
-    "ChurnPredictionGuide": ChurnPredictionGuide,
-    "AIRecommendationReviewDocs": AIRecommendationReviewDocs,
-    "CurriculumCriticalReview": CurriculumCriticalReview,
+    "Pioneer": Pioneer,
+    "PioneerCourse": PioneerCourse,
+    "PlatformComparison": PlatformComparison,
+    "PlatformStatus": PlatformStatus,
+    "Profile": Profile,
+    "ResourceValidation": ResourceValidation,
+    "Resources": Resources,
+    "ResourcesDashboard": ResourcesDashboard,
+    "ResourcesVerification": ResourcesVerification,
+    "RoadmapQ1": RoadmapQ1,
+    "Schedule": Schedule,
+    "SecretsManagement": SecretsManagement,
+    "SecurityDocs": SecurityDocs,
+    "StrategicPivot": StrategicPivot,
+    "Syllabus": Syllabus,
+    "SystemHealth": SystemHealth,
+    "TeacherCertificationCourse": TeacherCertificationCourse,
+    "TeacherCertificationDashboard": TeacherCertificationDashboard,
+    "TeacherDashboard": TeacherDashboard,
+    "TeacherFeedbackReview": TeacherFeedbackReview,
+    "TeacherLessonPage": TeacherLessonPage,
+    "TeacherLessonTraining": TeacherLessonTraining,
+    "TeacherTraining": TeacherTraining,
+    "TechnicalGapsAnalysis": TechnicalGapsAnalysis,
+    "TenantDashboard": TenantDashboard,
+    "VARKAnalytics": VARKAnalytics,
 }
 
 export const pagesConfig = {

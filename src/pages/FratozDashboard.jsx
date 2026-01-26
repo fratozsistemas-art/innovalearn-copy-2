@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
@@ -251,7 +250,7 @@ export default function FratozDashboardPage() {
                   <div className="text-2xl font-bold" style={{ color: 'var(--error)' }}>
                     {tenants.filter(t => (t.health_metrics?.health_score || 0) < 40).length}
                   </div>
-                  <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>Críticos (<40)</div>
+                  <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>Críticos (&lt;40)</div>
                 </div>
               </div>
             </CardContent>
