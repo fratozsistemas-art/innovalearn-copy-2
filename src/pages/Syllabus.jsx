@@ -89,7 +89,6 @@ const trailsData = [
   { id: 'mudancas_climaticas', name: 'Mudanças Climáticas', icon: '🌍', pattern: 'odd', color: '#3498DB' },
   { id: 'musica', name: 'Música', icon: '🎵', pattern: 'odd', color: '#9B59B6' },
   { id: 'educacao_financeira', name: 'Educação Financeira', icon: '💰', pattern: 'odd', color: '#F39C12' },
-  { id: 'pensamento_sistemico', name: 'Pensamento Sistêmico', icon: '🧠', pattern: 'odd', color: '#E74C3C' },
   { id: 'iot', name: 'IoT', icon: '📡', pattern: 'even', color: '#1ABC9C' },
   { id: 'astrofisica', name: 'Astrofísica', icon: '🔭', pattern: 'even', color: '#34495E' },
   { id: 'xadrez', name: 'Xadrez', icon: '♟️', pattern: 'even', color: '#7F8C8D' },
