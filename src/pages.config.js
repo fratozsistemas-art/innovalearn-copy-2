@@ -39,6 +39,7 @@ import EnvironmentDocs from './pages/EnvironmentDocs';
 import FratozDashboard from './pages/FratozDashboard';
 import Gamification from './pages/Gamification';
 import GapsDemonstration from './pages/GapsDemonstration';
+import InnAIReview from './pages/InnAIReview';
 import LessonView from './pages/LessonView';
 import ModuleView from './pages/ModuleView';
 import MotivationalAssessment from './pages/MotivationalAssessment';
@@ -49,6 +50,7 @@ import Pioneer from './pages/Pioneer';
 import PioneerCourse from './pages/PioneerCourse';
 import PlatformComparison from './pages/PlatformComparison';
 import PlatformStatus from './pages/PlatformStatus';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Profile from './pages/Profile';
 import ResourceValidation from './pages/ResourceValidation';
 import Resources from './pages/Resources';
@@ -72,8 +74,6 @@ import TeacherTraining from './pages/TeacherTraining';
 import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
 import TenantDashboard from './pages/TenantDashboard';
 import VARKAnalytics from './pages/VARKAnalytics';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import InnAIReview from './pages/InnAIReview';
 import __Layout from './Layout.jsx';
 
 
@@ -119,6 +119,7 @@ export const PAGES = {
     "FratozDashboard": FratozDashboard,
     "Gamification": Gamification,
     "GapsDemonstration": GapsDemonstration,
+    "InnAIReview": InnAIReview,
     "LessonView": LessonView,
     "ModuleView": ModuleView,
     "MotivationalAssessment": MotivationalAssessment,
@@ -129,6 +130,7 @@ export const PAGES = {
     "PioneerCourse": PioneerCourse,
     "PlatformComparison": PlatformComparison,
     "PlatformStatus": PlatformStatus,
+    "PrivacyPolicy": PrivacyPolicy,
     "Profile": Profile,
     "ResourceValidation": ResourceValidation,
     "Resources": Resources,
@@ -152,8 +154,6 @@ export const PAGES = {
     "TechnicalGapsAnalysis": TechnicalGapsAnalysis,
     "TenantDashboard": TenantDashboard,
     "VARKAnalytics": VARKAnalytics,
-    "PrivacyPolicy": PrivacyPolicy,
-    "InnAIReview": InnAIReview,
 }
 
 export const pagesConfig = {

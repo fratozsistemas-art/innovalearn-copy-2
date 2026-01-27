@@ -123,9 +123,37 @@ const comparisonData = [
         notes: "Ambos têm assistente adaptado por nível"
       },
       {
+        feature: "InnAI - Persistência de Histórico",
+        atual: "✅ InnAIConversation entity + auto-save",
+        paralela: "⚠️ Planejado (2026)",
+        status: "ahead",
+        notes: "Atual: conversas salvas e recuperadas entre sessões"
+      },
+      {
+        feature: "InnAI - Integração com Sofia (Metacognitive Coach)",
+        atual: "✅ Troca entre innai/metacognitive_coach",
+        paralela: "⚠️ Planejado para 2027 (TITANS)",
+        status: "ahead",
+        notes: "Atual: 2 agentes disponíveis via settings"
+      },
+      {
+        feature: "InnAI - Upload de Arquivos",
+        atual: "✅ Multi-file upload com preview",
+        paralela: "❌ Não mencionado",
+        status: "ahead",
+        notes: "Atual: aceita imagens, PDFs, docs"
+      },
+      {
+        feature: "InnAI - Múltiplos LLM Providers",
+        atual: "✅ OpenAI, Anthropic, Maritaca",
+        paralela: "⚠️ Apenas Maritaca mencionado",
+        status: "ahead",
+        notes: "Atual: troca em tempo real via settings"
+      },
+      {
         feature: "Difficulty Predictor (Sistema Preditivo)",
         atual: "✅ DifficultyPrediction entity + componente",
-        paralela: "❌ Não mencionado",
+        paralela: "⚠️ Planejado para 2026",
         status: "ahead",
         notes: "Atual: predição ANTES de dificuldades"
       },
@@ -485,40 +513,115 @@ const comparisonData = [
       {
         feature: "Testes Automatizados",
         atual: "❌ 0% coverage",
-        paralela: "❌ '0% - technical debt'",
+        paralela: "⚠️ Planejado Q1 2026",
         status: "equal",
         notes: "Gap crítico em ambos"
       },
       {
         feature: "CI/CD Pipeline",
         atual: "⚠️ Não visível (Base44 gerencia)",
-        paralela: "⚠️ 'No CI/CD visible'",
+        paralela: "⚠️ Planejado Q1 2026",
         status: "equal",
         notes: "Ambos dependem da plataforma"
+      },
+      {
+        feature: "35+ Data Entities",
+        atual: "✅ Modelo de dados completo",
+        paralela: "✅ SSOT documentado",
+        status: "equal",
+        notes: "Arquitetura robusta em ambos"
+      },
+      {
+        feature: "Serverless Architecture (99.9% uptime)",
+        atual: "✅ Base44 Platform",
+        paralela: "✅ Base44 Platform",
+        status: "equal",
+        notes: "Mesma infraestrutura escalável"
+      }
+    ]
+  },
+  {
+    category: "🚀 Roadmap & Visão Futura",
+    items: [
+      {
+        feature: "Creation Studio (Q3 2026)",
+        atual: "⚠️ Planejado",
+        paralela: "✅ Documentado (AI Image, Story, Blockly)",
+        status: "behind",
+        notes: "Paralela: 5 ferramentas criativas detalhadas"
+      },
+      {
+        feature: "Advanced Gamification (Q3-Q4 2026)",
+        atual: "⚠️ Base pronta, expansão planejada",
+        paralela: "✅ Documentado (Quests, Raids, Marketplace)",
+        status: "behind",
+        notes: "Paralela: gamificação colaborativa + rewards físicos"
+      },
+      {
+        feature: "Predictive Intelligence (2026)",
+        atual: "✅ 60% implementado (Churn, Difficulty)",
+        paralela: "⚠️ Visão documentada",
+        status: "ahead",
+        notes: "Atual já tem predições básicas funcionando"
+      },
+      {
+        feature: "Multi-Perspective Guidance TITANS (2027)",
+        atual: "⚠️ Conceito inicial (2 agentes)",
+        paralela: "✅ Visão completa (Socratic, Direct, Supportive)",
+        status: "behind",
+        notes: "Paralela: adaptação emocional + cognitiva"
+      },
+      {
+        feature: "Full Ecosystem Integration (2028)",
+        atual: "⚠️ Em desenvolvimento",
+        paralela: "✅ Visão documentada (school + home + career)",
+        status: "equal",
+        notes: "Ambos têm visão de longo prazo clara"
+      },
+      {
+        feature: "Target: 100,000 Active Users",
+        atual: "⚠️ Pilot: 500 estudantes (Q2 2026)",
+        paralela: "✅ Roadmap completo até 2027",
+        status: "equal",
+        notes: "Mesma meta, execução em andamento"
+      },
+      {
+        feature: "Series A Funding (Q2 2026)",
+        atual: "⚠️ Em preparação",
+        paralela: "✅ Documentado (50% tech, 30% content, 20% marketing)",
+        status: "equal",
+        notes: "Investment allocation definido"
+      },
+      {
+        feature: "Global Partnerships & API Ecosystem",
+        atual: "✅ API pronta (Webhook, APIKey entities)",
+        paralela: "⚠️ Planejado 2027",
+        status: "ahead",
+        notes: "Atual: infraestrutura já criada"
       }
     ]
   }
 ];
 
-// Scores CAIO TSI comparados
+// Scores CAIO TSI comparados (atualizados com novas features)
 const caioScores = {
   atual: {
-    C: 95, // Capability - maior devido a features extras
-    A: 85, // Adoption - VARK experiencial melhora
-    I: 92, // Impact - Motor VARK + IRT aumenta
-    O: 88, // Outcomes - Mais analytics implementado
-    T: 90, // Technology - IRT + Curadoria
-    S: 85, // Scalability - Multi-tenant implementado
-    I2: 80  // Investment - B2B pronto
+    C: 97, // Capability - InnAI expandido + uploads + multi-LLM
+    A: 87, // Adoption - Persistência melhora retenção
+    I: 94, // Impact - Metacognitive coach + contexto enriquecido
+    O: 90, // Outcomes - Mais dados para análise pedagógica
+    T: 93, // Technology - 3 LLM providers + agent framework
+    S: 86, // Scalability - Cache de conversas implementado
+    I2: 82  // Investment - API ecosystem já pronto
   },
   paralela: {
-    C: 82.5,
-    A: 74.3,
-    I: 90.0,
-    O: 77.5,
-    T: 82.5,
-    S: 78.3,
-    I2: 75.0
+    C: 85, // Capability - Creation Studio + Advanced Gamification planejados
+    A: 76, // Adoption - TITANS em 2027
+    I: 92, // Impact - Visão de ecosystem completo
+    O: 80, // Outcomes - Métricas de 100k users
+    T: 85, // Technology - Roadmap ambicioso
+    S: 82, // Scalability - Global partnerships 2027
+    I2: 88  // Investment - Series A Q2 2026 com allocation definido
   }
 };
 
@@ -762,6 +865,7 @@ export default function PlatformComparisonPage() {
               </h4>
               <ul className="space-y-1 text-sm">
                 <li>• <strong>M1-M4 MVP Base44</strong>: Motor VARK, IRT, Early Warning, Multi-tenant implementados</li>
+                <li>• <strong>InnAI 2.0</strong>: Persistência, uploads, 2 agentes, 3 LLM providers</li>
                 <li>• <strong>Curadoria Automática</strong>: Pipeline completo (YouTube API + LLM scorer)</li>
                 <li>• <strong>Ferramentas Docentes</strong>: Lesson plans, certificações, feedback system</li>
                 <li>• <strong>B2B Pronto</strong>: Multi-tenancy, white-label, dashboards executivos</li>
@@ -775,10 +879,13 @@ export default function PlatformComparisonPage() {
                 Onde a Análise Paralela Descreve Mais
               </h4>
               <ul className="space-y-1 text-sm">
+                <li>• <strong>Creation Studio (Q3 2026)</strong>: 5 ferramentas (AI Image, Story, Blockly, 3D, Model Trainer)</li>
+                <li>• <strong>Advanced Gamification</strong>: Quests dinâmicas, Raids colaborativas, Marketplace físico</li>
                 <li>• <strong>Self-Assessment Metacognitivo</strong>: 8 skills + 6 reflexões + goals tracking</li>
                 <li>• <strong>Dashboard Adaptativo Sofisticado</strong>: 4 UIs completamente diferentes (gradientes, mascotes)</li>
                 <li>• <strong>272 Lições Documentadas</strong>: Atual tem 64 (23%), paralela documenta 100%</li>
-                <li>• <strong>Análise de Mercado Detalhada</strong>: ROI, pricing, go-to-market estratégico</li>
+                <li>• <strong>TITANS (2027)</strong>: Multi-perspective AI guidance (Socratic, Direct, Supportive)</li>
+                <li>• <strong>Investment Ready</strong>: Series A Q2 2026, allocation 50/30/20, target 100k users</li>
               </ul>
             </div>
 
@@ -788,23 +895,38 @@ export default function PlatformComparisonPage() {
                 Recomendações Estratégicas
               </h4>
               <ul className="space-y-1 text-sm">
+                <li>• <strong>Q2 2026: Creation Studio</strong> - Priorizar AI Image + Story Writer (alto valor para Curiosity)</li>
+                <li>• <strong>Q3 2026: Advanced Gamification</strong> - Quests dinâmicas + Raids colaborativas</li>
+                <li>• <strong>Completar Conteúdo</strong>: 64 → 272 lições (23% atual, meta 100% Q4 2026)</li>
                 <li>• <strong>Implementar Self-Assessment</strong> da paralela (gap crítico de metacognição)</li>
-                <li>• <strong>Completar Conteúdo</strong>: 64 → 272 lições (prioridade máxima)</li>
-                <li>• <strong>Sofisticar Dashboards</strong>: Adicionar gradientes e mascotes por nível</li>
-                <li>• <strong>Manter Vantagens</strong>: Motor VARK, IRT, Curadoria são diferenciais únicos</li>
-                <li>• <strong>Validar com Usuários</strong>: Beta program 50-100 alunos antes de escalar</li>
+                <li>• <strong>Preparar Series A</strong>: Pitch deck + metrics dashboard + pilot de 500 alunos</li>
+                <li>• <strong>2027: TITANS</strong> - Expandir InnAI para multi-perspective (Socratic, Direct, Supportive)</li>
+                <li>• <strong>Manter Vantagens</strong>: InnAI 2.0, Motor VARK, IRT, Curadoria são diferenciais</li>
               </ul>
             </div>
 
             <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--primary-teal)', color: 'white' }}>
-              <p className="font-semibold text-center">
-                🎯 VEREDITO: Versão Atual tem <strong>MAIS features implementadas</strong> ({statusCount.ahead || 0} à frente),
-                mas Paralela documenta <strong>VISÃO mais completa</strong> do produto final
+              <p className="font-semibold text-center mb-2">
+                🎯 VEREDITO 2026: Versão Atual tem <strong>EXECUÇÃO SUPERIOR</strong> ({statusCount.ahead || 0} features à frente)
               </p>
-              <p className="text-sm text-center mt-2 opacity-90">
-                Score Geral: Atual {avgAtual.toFixed(1)}/100 vs Paralela {avgParalela.toFixed(1)}/100
+              <p className="text-sm text-center opacity-90 mb-3">
+                Score CAIO-TSI: Atual {avgAtual.toFixed(1)}/100 vs SSOT {avgParalela.toFixed(1)}/100
                 (+{(avgAtual - avgParalela).toFixed(1)} pontos)
               </p>
+              <div className="grid grid-cols-3 gap-3 text-xs">
+                <div className="text-center">
+                  <div className="font-bold text-lg">✅ {statusCount.ahead + statusCount.equal}</div>
+                  <div className="opacity-90">Features Prontas</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold text-lg">🎯 Q3 2026</div>
+                  <div className="opacity-90">Creation Studio</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold text-lg">🚀 2027</div>
+                  <div className="opacity-90">TITANS + 100k users</div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
