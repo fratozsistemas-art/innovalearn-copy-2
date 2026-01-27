@@ -300,17 +300,28 @@ function LayoutContent({ children, currentPageName }) {
               SIDEBAR HEADER (Branding)
               ──────────────────────────────────────────────────────────── */}
           
-          <SidebarHeader className="border-b border-neutral-light-300 bg-innova p-6">
+          <SidebarHeader className="border-b border-neutral-light-300 p-6" style={{ background: 'linear-gradient(135deg, #5D4E9F 0%, #00A9CE 100%)' }}>
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white shadow-lg transform hover:scale-105 transition-transform">
-                <GraduationCap className="w-7 h-7 text-innova" />
+              <div className="w-12 h-12 flex items-center justify-center">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#5D4E9F', stopOpacity: 1 }} />
+                      <stop offset="50%" style={{ stopColor: '#3B8ECC', stopOpacity: 1 }} />
+                      <stop offset="100%" style={{ stopColor: '#00A9CE', stopOpacity: 1 }} />
+                    </linearGradient>
+                  </defs>
+                  <path d="M30 80 Q10 50 30 20 Q50 20 50 40 Q50 60 70 60 Q90 60 90 40 L90 20" 
+                        fill="none" stroke="url(#logoGradient)" strokeWidth="12" strokeLinecap="round"/>
+                  <circle cx="30" cy="20" r="6" fill="#F7941D"/>
+                </svg>
               </div>
               <div>
                 <h2 className="font-heading font-bold text-lg tracking-tight text-white">
                   Innova Academy
                 </h2>
                 <p className="text-xs text-white/90">
-                  Portal do Aluno
+                  Escola de IA
                 </p>
               </div>
             </div>
@@ -337,9 +348,10 @@ function LayoutContent({ children, currentPageName }) {
                           asChild
                           className={`mb-1 rounded-xl transition-all duration-300 hover:scale-105 ${
                             isActive
-                              ? 'bg-innova text-white shadow-lg'
-                              : 'text-innova-navy-500 hover:bg-innova-50'
+                              ? 'text-white shadow-lg'
+                              : 'text-gray-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-cyan-50'
                           }`}
+                          style={isActive ? { background: 'linear-gradient(135deg, #5D4E9F 0%, #00A9CE 100%)' } : {}}
                         >
                           <Link to={item.url} className="flex items-center gap-3 px-4 py-3">
                             <item.icon className="w-5 h-5" />
@@ -362,7 +374,7 @@ function LayoutContent({ children, currentPageName }) {
                           className={`mb-1 rounded-xl transition-all duration-300 hover:scale-105 ${
                             location.pathname === createPageUrl("DebugDashboard")
                               ? 'bg-destructive text-white shadow-lg'
-                              : 'text-innova-navy-500 hover:bg-error-50'
+                              : 'text-gray-700 hover:bg-red-50'
                           }`}
                         >
                           <Link to={createPageUrl("DebugDashboard")} className="flex items-center gap-3 px-4 py-3">
@@ -378,7 +390,7 @@ function LayoutContent({ children, currentPageName }) {
                           className={`mb-1 rounded-xl transition-all duration-300 hover:scale-105 ${
                             location.pathname === createPageUrl("NetworkDiagnostic")
                               ? 'bg-warning-500 text-white shadow-lg'
-                              : 'text-innova-navy-500 hover:bg-warning-50'
+                              : 'text-gray-700 hover:bg-yellow-50'
                           }`}
                         >
                           <Link to={createPageUrl("NetworkDiagnostic")} className="flex items-center gap-3 px-4 py-3">
@@ -402,7 +414,7 @@ function LayoutContent({ children, currentPageName }) {
             {user && (
               <div className="space-y-3">
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-innova">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #5D4E9F 0%, #00A9CE 100%)' }}>
                     <span className="font-semibold text-sm text-white">
                       {user.full_name?.charAt(0) || "A"}
                     </span>
@@ -418,7 +430,8 @@ function LayoutContent({ children, currentPageName }) {
                 </div>
                 <Button
                   variant="outline"
-                  className="w-full justify-start gap-2 border-2 border-innova text-innova hover:bg-innova hover:text-white transition-all"
+                  className="w-full justify-start gap-2 border-2 text-white hover:opacity-90 transition-all"
+                  style={{ borderColor: '#5D4E9F', background: 'linear-gradient(135deg, #5D4E9F 0%, #00A9CE 100%)' }}
                   onClick={handleLogout}
                   disabled={logoutMutation.isPending}
                 >
@@ -443,10 +456,21 @@ function LayoutContent({ children, currentPageName }) {
           <header className="border-b border-neutral-light-300 bg-white px-6 py-4 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3 md:hidden">
-                <SidebarTrigger className="hover:bg-innova-50 p-2 rounded-lg transition-colors" />
+                <SidebarTrigger className="hover:bg-purple-50 p-2 rounded-lg transition-colors" />
                 <div className="flex items-center gap-2">
-                  <GraduationCap className="w-6 h-6 text-innova" />
-                  <h1 className="text-lg font-heading font-bold text-innova-navy-500">
+                  <svg viewBox="0 0 100 100" className="w-6 h-6">
+                    <defs>
+                      <linearGradient id="logoGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{ stopColor: '#5D4E9F', stopOpacity: 1 }} />
+                        <stop offset="50%" style={{ stopColor: '#3B8ECC', stopOpacity: 1 }} />
+                        <stop offset="100%" style={{ stopColor: '#00A9CE', stopOpacity: 1 }} />
+                      </linearGradient>
+                    </defs>
+                    <path d="M30 80 Q10 50 30 20 Q50 20 50 40 Q50 60 70 60 Q90 60 90 40 L90 20" 
+                          fill="none" stroke="url(#logoGradientMobile)" strokeWidth="12" strokeLinecap="round"/>
+                    <circle cx="30" cy="20" r="6" fill="#F7941D"/>
+                  </svg>
+                  <h1 className="text-lg font-heading font-bold" style={{ background: 'linear-gradient(135deg, #5D4E9F 0%, #00A9CE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     Innova Academy
                   </h1>
                 </div>
