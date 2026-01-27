@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useCurrentUser } from "@/components/hooks/useUser";
@@ -19,7 +18,10 @@ import {
   BarChart3,
   Shield,
   Target,
-  Sparkles
+  Sparkles,
+  FileText,
+  Clock,
+  Send
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -39,6 +41,8 @@ export default function TeacherDashboard() {
   const [pendingReviews, setPendingReviews] = useState([]);
   const [certifications, setCertifications] = useState([]);
   const [atRiskStudents, setAtRiskStudents] = useState([]);
+  const [assignments, setAssignments] = useState([]);
+  const [studentProgress, setStudentProgress] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -78,6 +82,23 @@ export default function TeacherDashboard() {
       });
       setCertifications(certs);
 
+      // Load assignments for teacher's classes
+      const allAssignments = await base44.entities.Assignment.list('-due_date', 100);
+      const relevantAssignments = allAssignments.filter(assignment => {
+        // Filter assignments for classes this teacher manages
+        return userClasses.some(c => assignment.course_id === c.course_level);
+      });
+      setAssignments(relevantAssignments);
+
+      // Load student progress for overview
+      if (allStudentEmails.length > 0) {
+        const progressData = await base44.entities.StudentProgress.list('-updated_date', 50);
+        const relevantProgress = progressData.filter(p => 
+          allStudentEmails.includes(p.student_email)
+        );
+        setStudentProgress(relevantProgress);
+      }
+
       // Load at-risk students from all classes
       const allStudents = await base44.entities.User.filter({ user_type: 'aluno' });
       const allStudentEmails = [];
@@ -107,6 +128,9 @@ export default function TeacherDashboard() {
       // Calculate stats
       const totalStudents = allStudentEmails.length;
       const activeClasses = userClasses.filter(c => c.status === 'active').length;
+      const pendingAssignments = relevantAssignments.filter(a => a.status === 'pending').length;
+      const submittedAssignments = relevantAssignments.filter(a => a.status === 'submitted').length;
+      const gradedAssignments = relevantAssignments.filter(a => a.status === 'graded').length;
 
       setStats({
         totalClasses: userClasses.length,
@@ -115,7 +139,11 @@ export default function TeacherDashboard() {
         atRiskCount: atRiskStudents.length,
         pendingReviewsCount: reviews.length,
         certificationsCount: certs.length,
-        avgClassSize: totalStudents > 0 && activeClasses > 0 ? Math.round(totalStudents / activeClasses) : 0
+        avgClassSize: totalStudents > 0 && activeClasses > 0 ? Math.round(totalStudents / activeClasses) : 0,
+        totalAssignments: relevantAssignments.length,
+        pendingAssignments,
+        submittedAssignments,
+        gradedAssignments
       });
 
     } catch (error) {
@@ -240,14 +268,27 @@ export default function TeacherDashboard() {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-6">
+          <TabsList className="grid w-full grid-cols-7 mb-6">
             <TabsTrigger value="overview">
               <Eye className="w-4 h-4 mr-2" />
               Visão Geral
             </TabsTrigger>
+            <TabsTrigger value="student-progress">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Progresso
+            </TabsTrigger>
+            <TabsTrigger value="assignments">
+              <FileText className="w-4 h-4 mr-2" />
+              Tarefas
+              {stats.submittedAssignments > 0 && (
+                <Badge className="ml-2" style={{ backgroundColor: 'var(--primary-teal)', color: 'white' }}>
+                  {stats.submittedAssignments}
+                </Badge>
+              )}
+            </TabsTrigger>
             <TabsTrigger value="ai-review">
               <Brain className="w-4 h-4 mr-2" />
-              Revisão de IA
+              IA
               {stats.pendingReviewsCount > 0 && (
                 <Badge className="ml-2" style={{ backgroundColor: 'var(--accent-orange)', color: 'white' }}>
                   {stats.pendingReviewsCount}
@@ -260,15 +301,11 @@ export default function TeacherDashboard() {
             </TabsTrigger>
             <TabsTrigger value="vark">
               <BarChart3 className="w-4 h-4 mr-2" />
-              VARK Analytics
+              VARK
             </TabsTrigger>
             <TabsTrigger value="alerts">
               <AlertTriangle className="w-4 h-4 mr-2" />
               Alertas
-            </TabsTrigger>
-            <TabsTrigger value="certifications">
-              <Award className="w-4 h-4 mr-2" />
-              Certificações
             </TabsTrigger>
           </TabsList>
 
@@ -352,6 +389,175 @@ export default function TeacherDashboard() {
             </div>
           </TabsContent>
 
+          {/* Student Progress Tab */}
+          <TabsContent value="student-progress">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5" style={{ color: 'var(--primary-teal)' }} />
+                  Progresso dos Alunos
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {studentProgress.slice(0, 10).map((progress, idx) => (
+                    <div key={idx} className="p-4 rounded-lg border hover:shadow-md transition-shadow">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full flex items-center justify-center" 
+                            style={{ backgroundColor: 'var(--primary-teal)', color: 'white' }}
+                          >
+                            {progress.student_email?.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <p className="font-semibold">{progress.student_email}</p>
+                            <p className="text-xs text-gray-600">
+                              {progress.course_id} - {progress.lesson_id}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          {progress.completed ? (
+                            <Badge style={{ backgroundColor: 'var(--success)', color: 'white' }}>
+                              <CheckCircle2 className="w-3 h-3 mr-1" />
+                              Completo
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline">
+                              <Clock className="w-3 h-3 mr-1" />
+                              Em Progresso
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      {progress.quiz_score && (
+                        <div className="mt-3">
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Quiz Score</span>
+                            <span className="font-semibold">{progress.quiz_score}%</span>
+                          </div>
+                          <Progress value={progress.quiz_score} />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {studentProgress.length === 0 && (
+                    <div className="text-center py-12">
+                      <TrendingUp className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                      <p className="text-gray-600">Nenhum progresso registrado ainda</p>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Assignments Tab */}
+          <TabsContent value="assignments">
+            <div className="space-y-6">
+              <div className="grid md:grid-cols-3 gap-4">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Clock className="w-8 h-8" style={{ color: 'var(--warning)' }} />
+                      <div>
+                        <div className="text-3xl font-bold">{stats.pendingAssignments}</div>
+                        <div className="text-sm text-gray-600">Pendentes</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Send className="w-8 h-8" style={{ color: 'var(--primary-teal)' }} />
+                      <div>
+                        <div className="text-3xl font-bold">{stats.submittedAssignments}</div>
+                        <div className="text-sm text-gray-600">Para Corrigir</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle2 className="w-8 h-8" style={{ color: 'var(--success)' }} />
+                      <div>
+                        <div className="text-3xl font-bold">{stats.gradedAssignments}</div>
+                        <div className="text-sm text-gray-600">Corrigidas</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="w-5 h-5" style={{ color: 'var(--primary-teal)' }} />
+                      Gerenciar Tarefas
+                    </CardTitle>
+                    <Button 
+                      onClick={() => navigate(createPageUrl("AssignmentGenerator"))}
+                      style={{ backgroundColor: 'var(--primary-teal)', color: 'white' }}
+                    >
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      Criar Nova Tarefa
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {assignments.slice(0, 10).map((assignment) => (
+                      <div key={assignment.id} className="p-4 rounded-lg border hover:shadow-md transition-shadow">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h4 className="font-semibold mb-1">{assignment.title}</h4>
+                            <p className="text-sm text-gray-600 mb-2">{assignment.description?.substring(0, 100)}...</p>
+                            <div className="flex items-center gap-3 text-xs text-gray-500">
+                              <span>📚 {assignment.course_id}</span>
+                              <span>📅 {new Date(assignment.due_date).toLocaleDateString('pt-BR')}</span>
+                              <span>⭐ {assignment.points} pontos</span>
+                            </div>
+                          </div>
+                          <div className="ml-4">
+                            <Badge className={
+                              assignment.status === 'graded' ? 'bg-green-600 text-white' :
+                              assignment.status === 'submitted' ? 'bg-blue-600 text-white' :
+                              assignment.status === 'late' ? 'bg-red-600 text-white' :
+                              'bg-gray-600 text-white'
+                            }>
+                              {assignment.status === 'graded' ? 'Corrigida' :
+                               assignment.status === 'submitted' ? 'Enviada' :
+                               assignment.status === 'late' ? 'Atrasada' :
+                               'Pendente'}
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    
+                    {assignments.length === 0 && (
+                      <div className="text-center py-12">
+                        <FileText className="w-16 h-16 mx-auto mb-4 opacity-30" />
+                        <p className="text-gray-600 mb-4">Nenhuma tarefa criada ainda</p>
+                        <Button 
+                          onClick={() => navigate(createPageUrl("AssignmentGenerator"))}
+                          style={{ backgroundColor: 'var(--primary-teal)', color: 'white' }}
+                        >
+                          <Sparkles className="w-4 h-4 mr-2" />
+                          Criar Primeira Tarefa
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
           {/* AI Review Tab */}
           <TabsContent value="ai-review">
             <AIReviewPanel 
@@ -425,8 +631,8 @@ export default function TeacherDashboard() {
             </Card>
           </TabsContent>
 
-          {/* Certifications Tab */}
-          <TabsContent value="certifications">
+          {/* Alerts Tab */}
+          <TabsContent value="alerts">
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
@@ -520,7 +726,7 @@ export default function TeacherDashboard() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </Card>
           </TabsContent>
         </Tabs>
 

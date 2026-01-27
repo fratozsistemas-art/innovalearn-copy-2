@@ -52,6 +52,7 @@ import PlatformComparison from './pages/PlatformComparison';
 import PlatformStatus from './pages/PlatformStatus';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Profile from './pages/Profile';
+import PublicRoadmap from './pages/PublicRoadmap';
 import ResourceValidation from './pages/ResourceValidation';
 import Resources from './pages/Resources';
 import ResourcesDashboard from './pages/ResourcesDashboard';
@@ -73,8 +74,8 @@ import TeacherLessonTraining from './pages/TeacherLessonTraining';
 import TeacherTraining from './pages/TeacherTraining';
 import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
 import TenantDashboard from './pages/TenantDashboard';
-import VARKAnalytics from './pages/VARKAnalytics';
 import UserManagement from './pages/UserManagement';
+import VARKAnalytics from './pages/VARKAnalytics';
 import __Layout from './Layout.jsx';
 
 
@@ -133,6 +134,7 @@ export const PAGES = {
     "PlatformStatus": PlatformStatus,
     "PrivacyPolicy": PrivacyPolicy,
     "Profile": Profile,
+    "PublicRoadmap": PublicRoadmap,
     "ResourceValidation": ResourceValidation,
     "Resources": Resources,
     "ResourcesDashboard": ResourcesDashboard,
@@ -154,8 +156,8 @@ export const PAGES = {
     "TeacherTraining": TeacherTraining,
     "TechnicalGapsAnalysis": TechnicalGapsAnalysis,
     "TenantDashboard": TenantDashboard,
-    "VARKAnalytics": VARKAnalytics,
     "UserManagement": UserManagement,
+    "VARKAnalytics": VARKAnalytics,
 }
 
 export const pagesConfig = {
