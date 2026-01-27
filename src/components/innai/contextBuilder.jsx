@@ -25,20 +25,35 @@ export async function buildStudentContext(studentEmail) {
       base44.entities.LearningPattern.filter({ student_email: studentEmail }).catch(() => [])
     ]);
 
-    // Calcular dias sem acesso baseado no StudentProgress
+    // Calcular dias sem acesso - usar AGORA como referência (usuário está acessando)
+    // Se o usuário está vendo InnAI, ele ESTÁ ATIVO AGORA
     let daysSinceLastAccess = 0;
+    
+    // Pegar a data/hora atual do sistema
+    const now = new Date();
+    
     if (progressData.length > 0) {
-      // Encontrar o progresso mais recente
-      const recentProgress = progressData.sort((a, b) => {
-        const dateA = a.updated_date || a.created_date;
-        const dateB = b.updated_date || b.created_date;
-        return new Date(dateB) - new Date(dateA);
-      })[0];
+      // Encontrar o progresso mais recente ANTES de hoje
+      const sortedProgress = progressData
+        .map(p => ({
+          ...p,
+          date: new Date(p.updated_date || p.created_date)
+        }))
+        .filter(p => p.date < now) // Apenas registros anteriores
+        .sort((a, b) => b.date - a.date);
       
-      const lastAccessDate = recentProgress.updated_date || recentProgress.created_date;
-      if (lastAccessDate) {
-        daysSinceLastAccess = differenceInDays(new Date(), new Date(lastAccessDate));
+      if (sortedProgress.length > 0) {
+        const lastAccessDate = sortedProgress[0].date;
+        daysSinceLastAccess = differenceInDays(now, lastAccessDate);
+        
+        // Se a diferença for 0 ou negativa, significa que o usuário está ativo hoje
+        if (daysSinceLastAccess <= 0) {
+          daysSinceLastAccess = 0;
+        }
       }
+    } else {
+      // Se não há dados de progresso, considerar novo usuário (0 dias)
+      daysSinceLastAccess = 0;
     }
 
     // Aulas concluídas recentemente (últimas 5)
@@ -198,22 +213,33 @@ export function detectProactiveTriggers(context) {
   }
 
   // Trigger 1: Inatividade prolongada
-  if (context.days_since_last_access > 7) {
+  // IMPORTANTE: Só mostrar se realmente houver inatividade significativa
+  if (context.days_since_last_access > 14) {
     triggers.push({
       type: 'inactivity',
       priority: 'urgent',
-      message: `Oi! Percebi que você não acessa a plataforma há ${context.days_since_last_access} dias. Tudo bem? Estou aqui para ajudar você a retomar seus estudos! 🌱`,
+      message: `Oi! Faz um tempinho que você não acessa a plataforma. Tudo bem? Estou aqui para ajudar você a retomar seus estudos! 🌱`,
       suggested_actions: [
         { type: 'open_lesson', label: 'Ver Próxima Lição', url: '/Courses' }
       ]
     });
-  } else if (context.days_since_last_access > 3) {
+  } else if (context.days_since_last_access >= 7) {
     triggers.push({
       type: 'mild_inactivity',
       priority: 'medium',
-      message: `Oi! Faz alguns dias que não nos vemos. Que tal continuar de onde parou? 😊`,
+      message: `Oi! Faz uma semana que não nos vemos. Que tal continuar de onde parou? 😊`,
       suggested_actions: [
         { type: 'open_lesson', label: 'Continuar Estudos', url: '/Courses' }
+      ]
+    });
+  } else if (context.days_since_last_access > 0) {
+    // Usuário voltou após alguns dias - mensagem de boas-vindas
+    triggers.push({
+      type: 'welcome_back',
+      priority: 'low',
+      message: `Que bom te ver de volta! Como posso ajudar hoje? 😊`,
+      suggested_actions: [
+        { type: 'continue_learning', label: 'Continuar Aprendendo', url: '/Courses' }
       ]
     });
   }
