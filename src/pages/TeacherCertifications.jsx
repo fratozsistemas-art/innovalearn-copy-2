@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import PersonalizedLearningPath from "@/components/teacher/PersonalizedLearningPath";
 
 const CERTIFICATION_TYPES = {
   lesson_specialist: {
@@ -204,11 +205,23 @@ export default function TeacherCertificationsPage() {
 
         {/* Main Content */}
         <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-          <TabsList className="grid w-full" style={{ gridTemplateColumns: isAdmin ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)' }}>
+          <TabsList className="grid w-full" style={{ gridTemplateColumns: isAdmin ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)' }}>
+            <TabsTrigger value="learningPath">Meu Caminho</TabsTrigger>
             <TabsTrigger value="myCertifications">Minhas Certificações</TabsTrigger>
             <TabsTrigger value="available">Disponíveis</TabsTrigger>
             {isAdmin && <TabsTrigger value="manage">Gerenciar</TabsTrigger>}
           </TabsList>
+
+          {/* Personalized Learning Path */}
+          <TabsContent value="learningPath" className="space-y-4">
+            <PersonalizedLearningPath
+              user={user}
+              certifications={myCertifications}
+              lessonCertifications={lessonCertifications}
+              trainingProgress={trainingProgress}
+              trainingCourses={trainingCourses}
+            />
+          </TabsContent>
 
           {/* Minhas Certificações */}
           <TabsContent value="myCertifications" className="space-y-4">
