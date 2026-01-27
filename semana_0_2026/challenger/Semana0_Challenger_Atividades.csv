@@ -1,0 +1,12 @@
+Aula,Curso,Bloco,Atividade,Tipo,Duração (min),Objetivo,Materiais Físicos,Recursos Digitais,Tecnologia,Avaliação,Homework,Family Work,Plano B
+0,Challenger,Provocação,Desafio Global - Escolha Seu Problema,Discussão,10,Conectar análise de dados a impacto social,"","","Projetor",Votação e discussão,,,
+0,Challenger,Provocação,Autoavaliação - Meu Perfil de Inovador,Diagnóstico,10,Mapear conhecimento técnico e ambições,"Formulário impresso","","",Completude do perfil,,,
+0,Challenger,Ética,Debate - O Algoritmo de Empregos Justo,Estudo de Caso,20,Compreender viés algorítmico,"Cartões com perguntas para grupos","Slides do caso Amazon","Projetor",Análise em grupos,,,
+0,Challenger,Ética,Checklist de Impacto Ético,Reflexão Individual,10,Ferramenta prática para avaliar projetos,"Formulário de checklist","","",Checklist criado e assinado,,,
+0,Challenger,Intervalo,Pausa + Setup Técnico,Break,10,Descanso e configuração,"Lanche, Cheat Sheet Pandas, Checklist Qualidade, Template Relatório","","Google Colab ou Jupyter Notebook, bibliotecas: pandas/matplotlib/seaborn",Ambiente funcional,,,
+0,Challenger,Projeto,Demonstração - Do CSV à Visualização,Demo,12,Mostrar fluxo completo de análise,"","Dataset exemplo (educacao_escolas.csv)","Projetor, Google Colab",Compreensão do fluxo EDA,,,
+0,Challenger,Projeto,Análise Exploratória Guiada - Seu Dashboard,Hands-on,30,Criar análise completa de dataset,"","Notebook template com células guiadas, Banco de Perguntas Analíticas","Google Colab/Jupyter, dataset preparado",Dashboard completo com 3+ visualizações,"Missão: Expanda Seu Dashboard (3 níveis de desafio)","Insights para a Família (apresentar dashboard, coletar ideias de análise)","Jupyter Local OU Excel+PowerPoint OU Análise Manual (papel) OU Google Sheets"
+0,Challenger,Projeto,Teste de Qualidade e Refinamento,Validação,8,Validar análise e melhorar visualizações,"Checklist de Qualidade impresso","","",Checklist completo,,,
+0,Challenger,Fechamento,Galeria de Dashboards - Insights Relâmpago,Showcase,7,Compartilhar insights principais,"","","Projetor",Apresentação TED de 1 min,,,
+0,Challenger,Fechamento,Reflexão Coletiva,Discussão,3,Consolidar aprendizados,"","","",Respostas reflexivas,,,
+0,Challenger,Fechamento,Conexão com Casa e Próximos Passos,Entrega,10,Explicar homework e family work,"","","",Compreensão das tarefas,,,
