@@ -1,0 +1,62 @@
+semana_0_2026/
+│
+├── 📄 README.md (7.2 KB)
+│   └─ Documentação principal com visão geral, estrutura e implementação
+│
+├── 📄 INDEX.md (4.0 KB)
+│   └─ Índice rápido para acesso direto aos materiais por curso
+│
+├── 📄 INTEGRATION_GUIDE.md (15.9 KB)
+│   └─ Guia técnico completo: DB schema, APIs, UI components, workflows
+│
+├── 📄 IMPLEMENTATION_SUMMARY.md (7.8 KB)
+│   └─ Resumo executivo da implementação e próximos passos
+│
+├── 📄 README_MASTER.md (16 KB)
+│   └─ Documentação técnica original do pacote completo
+│
+├── 📁 curiosity/ (6+ anos)
+│   ├── 📄 Semana0_Curiosity_PlanoDetalhado.md (19 KB)
+│   │   └─ Tema: "Despertar Digital - Meu Primeiro Avatar com IA"
+│   │   └─ Artefato: Avatar IA gerado por prompts
+│   │   └─ Tecnologia: IA Generativa (DALL-E, Midjourney)
+│   │
+│   └── 📊 Semana0_Curiosity_Atividades.csv (2.9 KB)
+│       └─ Tabela estruturada de atividades com timing e materiais
+│
+├── 📁 discovery/ (9+ anos)
+│   ├── 📄 Semana0_Discovery_PlanoDetalhado.md (24 KB)
+│   │   └─ Tema: "Descobrindo como as Máquinas Pensam"
+│   │   └─ Artefato: Classificador de Objetos (Machine Learning)
+│   │   └─ Tecnologia: Google Teachable Machine
+│   │
+│   └── 📊 Semana0_Discovery_Atividades.csv (2.4 KB)
+│       └─ Tabela estruturada de atividades com timing e materiais
+│
+├── 📁 pioneer/ (12+ anos)
+│   ├── 📄 Semana0_Pioneer_PlanoDetalhado.md (29 KB)
+│   │   └─ Tema: "Construindo com Código - Primeiro Chatbot"
+│   │   └─ Artefato: Chatbot Inteligente em Python
+│   │   └─ Tecnologia: Python + ChatGPT API + Google Colab
+│   │
+│   └── 📊 Semana0_Pioneer_Atividades.csv (2.3 KB)
+│       └─ Tabela estruturada de atividades com timing e materiais
+│
+└── 📁 challenger/ (14+ anos)
+    ├── 📄 Semana0_Challenger_PlanoDetalhado.md (32 KB)
+    │   └─ Tema: "Inovando com Dados - Dashboard de Insights"
+    │   └─ Artefato: Dashboard Interativo de Análise de Dados
+    │   └─ Tecnologia: Python (Pandas, Plotly) + Google Colab
+    │
+    └── 📊 Semana0_Challenger_Atividades.csv (2.4 KB)
+        └─ Tabela estruturada de atividades com timing e materiais
+
+═══════════════════════════════════════════════════════════════
+RESUMO:
+  • 13 arquivos totais (~123 KB de conteúdo)
+  • 4 cursos completos (Curiosity, Discovery, Pioneer, Challenger)
+  • 5 documentos de suporte e integração
+  • Duração padrão: 120 minutos por aula
+  • Todos os módulos de um curso usam a mesma aula
+  • Rotação anual implementada (2026 → 2027 → 2028...)
+═══════════════════════════════════════════════════════════════
