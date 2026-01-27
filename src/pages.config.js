@@ -74,6 +74,7 @@ import TeacherTraining from './pages/TeacherTraining';
 import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
 import TenantDashboard from './pages/TenantDashboard';
 import VARKAnalytics from './pages/VARKAnalytics';
+import UserManagement from './pages/UserManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -154,6 +155,7 @@ export const PAGES = {
     "TechnicalGapsAnalysis": TechnicalGapsAnalysis,
     "TenantDashboard": TenantDashboard,
     "VARKAnalytics": VARKAnalytics,
+    "UserManagement": UserManagement,
 }
 
 export const pagesConfig = {

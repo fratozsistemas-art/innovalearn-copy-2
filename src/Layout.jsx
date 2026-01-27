@@ -256,6 +256,12 @@ const navigationItems = [
     restricted: ['administrador', 'coordenador_pedagogico']
   },
   {
+    title: "Gestão de Usuários 👥",
+    url: createPageUrl("UserManagement"),
+    icon: Users,
+    restricted: ['administrador']
+  },
+  {
     title: "Perfil",
     url: createPageUrl("Profile"),
     icon: User,
