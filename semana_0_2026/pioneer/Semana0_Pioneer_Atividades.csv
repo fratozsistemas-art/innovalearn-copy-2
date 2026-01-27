@@ -1,0 +1,13 @@
+Aula,Curso,Bloco,Atividade,Tipo,Duração (min),Objetivo,Materiais Físicos,Recursos Digitais,Tecnologia,Avaliação,Homework,Family Work,Plano B
+0,Pioneer,Nivelamento,Desafio de Lógica - Você Pensa como Programador,Diagnóstico,10,Diagnosticar pensamento computacional,"","","Projetor",Qualidade do pseudocódigo,,,
+0,Pioneer,Nivelamento,Mapeamento de Habilidades - Minha Jornada,Formulário,10,Identificar interesses e estabelecer objetivos,"Formulário impresso ou digital","","",Completude do perfil técnico,,,
+0,Pioneer,Ética,Estudo de Caso - O Bug Inocente,Discussão,15,Compreender responsabilidade técnica,"","Slides do caso","Projetor",Identificação de erros e soluções,,,
+0,Pioneer,Ética,Princípios do Desenvolvedor Ético,Reflexão,15,Estabelecer compromisso com qualidade,"Formulário de Compromisso impresso","","",Compromisso assinado,,,
+0,Pioneer,Intervalo,Pausa + Setup Técnico,Break,10,Descanso e configuração de ambiente,"Lanche, Cheat Sheet Python, Checklist Debugging","Templates de código (3 níveis)","Google Colab ou Thonny IDE",Ambiente funcional,,,
+0,Pioneer,Projeto,Demonstração - Anatomia de um Chatbot,Demo,10,Entender estrutura de código Python,"","","Projetor, Google Colab",Compreensão de funções e condicionais,,,
+0,Pioneer,Projeto,Desenvolvimento com Assistência de IA,Hands-on,30,Criar chatbot usando template + IA,"","Templates de código por nível","Google Colab/Thonny, ChatGPT/Gemini",Chatbot funcional,"Missão: Evolução do Chatbot (3 níveis de desafio)","Demonstração + Entrevista (mostrar chatbot para família, implementar 1 sugestão)","Thonny Offline OU Programação em Papel OU Vídeos Tutorial"
+0,Pioneer,Projeto,Teste e Debugging,Validação,10,Validar funcionamento e corrigir erros,"Checklist de Qualidade impresso","","",Checklist completo,,,
+0,Pioneer,Fechamento,Galeria de Chatbots - Demo Day,Showcase,7,Compartilhar criações,"","","",Demonstração ao vivo,,,
+0,Pioneer,Fechamento,Documentação e Exportação,Documentação,3,Criar README do projeto,"","Template README.md","",README completo,,,
+0,Pioneer,Fechamento,Reflexão Técnica,Discussão,5,Consolidar aprendizados de programação,"","","",Respostas reflexivas,,,
+0,Pioneer,Fechamento,Conexão com Casa,Entrega,5,Explicar homework e family work,"","","",Compreensão das tarefas,,,
