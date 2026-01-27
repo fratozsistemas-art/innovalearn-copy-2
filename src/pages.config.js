@@ -73,6 +73,7 @@ import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
 import TenantDashboard from './pages/TenantDashboard';
 import VARKAnalytics from './pages/VARKAnalytics';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import InnAIReview from './pages/InnAIReview';
 import __Layout from './Layout.jsx';
 
 
@@ -152,6 +153,7 @@ export const PAGES = {
     "TenantDashboard": TenantDashboard,
     "VARKAnalytics": VARKAnalytics,
     "PrivacyPolicy": PrivacyPolicy,
+    "InnAIReview": InnAIReview,
 }
 
 export const pagesConfig = {

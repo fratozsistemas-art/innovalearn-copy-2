@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -249,6 +248,12 @@ const navigationItems = [
     url: createPageUrl("Documentation"),
     icon: BookOpen,
     restricted: ['administrador', 'coordenador_pedagogico', 'instrutor']
+  },
+  {
+    title: "Review: InnAI 🤖",
+    url: createPageUrl("InnAIReview"),
+    icon: Brain,
+    restricted: ['administrador', 'coordenador_pedagogico']
   },
   {
     title: "Perfil",
