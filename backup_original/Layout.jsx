@@ -27,7 +27,7 @@ import {
   BarChart3,
   Joystick,
   Sparkles,
-  Brain,
+  Brain, // New icon for "Meu Coach de IA"
 } from "lucide-react";
 import {
   Sidebar,
@@ -282,38 +282,110 @@ function LayoutContent({ children, currentPageName }) {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-neutral-light-200">
-        
-        {/* ═══════════════════════════════════════════════════════════════
-            SIDEBAR PRINCIPAL
-            ═══════════════════════════════════════════════════════════════ */}
-        
-        <Sidebar className="border-r border-neutral-light-300 bg-white">
-          
-          {/* ────────────────────────────────────────────────────────────
-              SIDEBAR HEADER (Branding)
-              ──────────────────────────────────────────────────────────── */}
-          
-          <SidebarHeader className="border-b border-neutral-light-300 bg-innova p-6">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@300;400;700&display=swap');
+
+        :root {
+          --primary-teal: #00A99D;
+          --primary-navy: #2C3E50;
+          --accent-orange: #FF6F3C;
+          --accent-yellow: #FFC857;
+          --neutral-light: #ECF0F1;
+          --neutral-dark: #34495E;
+          --neutral-medium: #BDC3C7;
+          --success: #27AE60;
+          --warning: #F39C12;
+          --error: #E74C3C;
+          --info: #3498DB;
+          --background: #FFFFFF;
+          --text-primary: #2C3E50;
+          --text-secondary: #7F8C8D;
+        }
+
+        * {
+          font-family: 'Lato', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 700;
+        }
+
+        body {
+          background-color: var(--neutral-light);
+          color: var(--text-primary);
+        }
+
+        .btn-primary {
+          background-color: var(--primary-teal);
+          color: var(--background);
+          border-radius: 8px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+          background-color: #008C82;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 169, 157, 0.3);
+        }
+
+        .btn-secondary {
+          background-color: transparent;
+          color: var(--primary-teal);
+          border: 2px solid var(--primary-teal);
+          border-radius: 8px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+          background-color: var(--primary-teal);
+          color: var(--background);
+        }
+
+        .card-innova {
+          background-color: var(--background);
+          border-radius: 12px;
+          padding: 16px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          transition: all 0.3s ease;
+        }
+
+        .card-innova:hover {
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+          transform: translateY(-2px);
+        }
+
+        input, textarea, select {
+          background-color: var(--neutral-light);
+          border: 1px solid var(--neutral-medium);
+          border-radius: 8px;
+          padding: 10px 12px;
+          font-family: 'Lato', sans-serif;
+          transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+          outline: none;
+          border-color: var(--primary-teal);
+          box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.1);
+        }
+      `}</style>
+      <div className="min-h-screen flex w-full" style={{ backgroundColor: 'var(--neutral-light)' }}>
+        <Sidebar className="border-r" style={{ borderColor: 'var(--neutral-medium)', backgroundColor: 'var(--background)' }}>
+          <SidebarHeader className="border-b p-6" style={{ borderColor: 'var(--neutral-medium)', backgroundColor: 'var(--primary-teal)' }}>
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white shadow-lg transform hover:scale-105 transition-transform">
-                <GraduationCap className="w-7 h-7 text-innova" />
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform" style={{ backgroundColor: 'var(--background)' }}>
+                <GraduationCap className="w-7 h-7" style={{ color: 'var(--primary-teal)' }} />
               </div>
               <div>
-                <h2 className="font-heading font-bold text-lg tracking-tight text-white">
-                  Innova Academy
-                </h2>
-                <p className="text-xs text-white/90">
-                  Portal do Aluno
-                </p>
+                <h2 className="font-heading font-bold text-lg tracking-tight" style={{ color: 'var(--background)' }}>Innova Academy</h2>
+                <p className="text-xs" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>Portal do Aluno</p>
               </div>
             </div>
           </SidebarHeader>
 
-          {/* ────────────────────────────────────────────────────────────
-              SIDEBAR CONTENT (Navigation)
-              ──────────────────────────────────────────────────────────── */}
-          
           <SidebarContent className="p-3">
             <SidebarGroup>
               <SidebarGroupContent>
@@ -323,17 +395,21 @@ function LayoutContent({ children, currentPageName }) {
                       return null;
                     }
 
-                    const isActive = location.pathname === item.url;
-
                     return (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                           asChild
                           className={`mb-1 rounded-xl transition-all duration-300 hover:scale-105 ${
-                            isActive
-                              ? 'bg-innova text-white shadow-lg'
-                              : 'text-innova-navy-500 hover:bg-innova-50'
+                            location.pathname === item.url
+                              ? 'shadow-lg'
+                              : ''
                           }`}
+                          style={location.pathname === item.url ? {
+                            backgroundColor: 'var(--primary-teal)',
+                            color: 'var(--background)'
+                          } : {
+                            color: 'var(--text-primary)'
+                          }}
                         >
                           <Link to={item.url} className="flex items-center gap-3 px-4 py-3">
                             <item.icon className="w-5 h-5" />
@@ -344,10 +420,7 @@ function LayoutContent({ children, currentPageName }) {
                     );
                   })}
 
-                  {/* ────────────────────────────────────────────────────
-                      Debug Dashboard & Network Diagnostic (Admins)
-                      ──────────────────────────────────────────────────── */}
-                  
+                  {/* Debug Dashboard & Network Diagnostic - apenas admins */}
                   {user?.user_type === 'administrador' && (
                     <>
                       <SidebarMenuItem>
@@ -355,9 +428,15 @@ function LayoutContent({ children, currentPageName }) {
                           asChild
                           className={`mb-1 rounded-xl transition-all duration-300 hover:scale-105 ${
                             location.pathname === createPageUrl("DebugDashboard")
-                              ? 'bg-destructive text-white shadow-lg'
-                              : 'text-innova-navy-500 hover:bg-error-50'
+                              ? 'shadow-lg'
+                              : ''
                           }`}
+                          style={location.pathname === createPageUrl("DebugDashboard") ? {
+                            backgroundColor: 'var(--error)',
+                            color: 'var(--background)'
+                          } : {
+                            color: 'var(--text-primary)'
+                          }}
                         >
                           <Link to={createPageUrl("DebugDashboard")} className="flex items-center gap-3 px-4 py-3">
                             <AlertTriangle className="w-5 h-5" />
@@ -371,9 +450,15 @@ function LayoutContent({ children, currentPageName }) {
                           asChild
                           className={`mb-1 rounded-xl transition-all duration-300 hover:scale-105 ${
                             location.pathname === createPageUrl("NetworkDiagnostic")
-                              ? 'bg-warning-500 text-white shadow-lg'
-                              : 'text-innova-navy-500 hover:bg-warning-50'
+                              ? 'shadow-lg'
+                              : ''
                           }`}
+                          style={location.pathname === createPageUrl("NetworkDiagnostic") ? {
+                            backgroundColor: 'var(--warning)',
+                            color: 'var(--background)'
+                          } : {
+                            color: 'var(--text-primary)'
+                          }}
                         >
                           <Link to={createPageUrl("NetworkDiagnostic")} className="flex items-center gap-3 px-4 py-3">
                             <Wifi className="w-5 h-5" />
@@ -388,31 +473,25 @@ function LayoutContent({ children, currentPageName }) {
             </SidebarGroup>
           </SidebarContent>
 
-          {/* ────────────────────────────────────────────────────────────
-              SIDEBAR FOOTER (User Profile & Logout)
-              ──────────────────────────────────────────────────────────── */}
-          
-          <SidebarFooter className="border-t border-neutral-light-300 bg-neutral-light-100 p-4">
+          <SidebarFooter className="border-t p-4" style={{ borderColor: 'var(--neutral-medium)', backgroundColor: 'var(--neutral-light)' }}>
             {user && (
               <div className="space-y-3">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-white shadow-sm">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-innova">
-                    <span className="font-semibold text-sm text-white">
+                <div className="flex items-center gap-3 p-3 rounded-xl shadow-sm" style={{ backgroundColor: 'var(--background)' }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--primary-teal)' }}>
+                    <span className="font-semibold text-sm" style={{ color: 'var(--background)' }}>
                       {user.full_name?.charAt(0) || "A"}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm text-innova-navy-500 truncate">
+                    <p className="font-semibold text-sm truncate" style={{ color: 'var(--text-primary)' }}>
                       {user.full_name || "Aluno"}
                     </p>
-                    <p className="text-xs text-neutral-dark-50 truncate">
-                      {user.email}
-                    </p>
+                    <p className="text-xs truncate" style={{ color: 'var(--text-secondary)' }}>{user.email}</p>
                   </div>
                 </div>
                 <Button
                   variant="outline"
-                  className="w-full justify-start gap-2 border-2 border-innova text-innova hover:bg-innova hover:text-white transition-all"
+                  className="w-full justify-start gap-2 transition-all btn-secondary"
                   onClick={handleLogout}
                   disabled={logoutMutation.isPending}
                 >
@@ -424,25 +503,14 @@ function LayoutContent({ children, currentPageName }) {
           </SidebarFooter>
         </Sidebar>
 
-        {/* ═══════════════════════════════════════════════════════════════
-            MAIN CONTENT AREA
-            ═══════════════════════════════════════════════════════════════ */}
-        
         <main className="flex-1 flex flex-col">
-          
-          {/* ────────────────────────────────────────────────────────────
-              HEADER (Mobile Trigger + Notifications)
-              ──────────────────────────────────────────────────────────── */}
-          
-          <header className="border-b border-neutral-light-300 bg-white px-6 py-4 shadow-sm">
+          <header className="border-b px-6 py-4 shadow-sm" style={{ backgroundColor: 'var(--background)', borderColor: 'var(--neutral-medium)' }}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3 md:hidden">
-                <SidebarTrigger className="hover:bg-innova-50 p-2 rounded-lg transition-colors" />
+                <SidebarTrigger className="hover:bg-opacity-10 p-2 rounded-lg transition-colors" />
                 <div className="flex items-center gap-2">
-                  <GraduationCap className="w-6 h-6 text-innova" />
-                  <h1 className="text-lg font-heading font-bold text-innova-navy-500">
-                    Innova Academy
-                  </h1>
+                  <GraduationCap className="w-6 h-6" style={{ color: 'var(--primary-teal)' }} />
+                  <h1 className="text-lg font-heading font-bold" style={{ color: 'var(--text-primary)' }}>Innova Academy</h1>
                 </div>
               </div>
               <div className="flex items-center gap-2 ml-auto">
@@ -451,10 +519,6 @@ function LayoutContent({ children, currentPageName }) {
             </div>
           </header>
 
-          {/* ────────────────────────────────────────────────────────────
-              PAGE CONTENT (Children)
-              ──────────────────────────────────────────────────────────── */}
-          
           <div className="flex-1 overflow-auto">
             <ErrorBoundary>
               {children}
@@ -462,10 +526,7 @@ function LayoutContent({ children, currentPageName }) {
           </div>
         </main>
 
-        {/* ═══════════════════════════════════════════════════════════════
-            INNAI CHAT WIDGET (Conditional)
-            ═══════════════════════════════════════════════════════════════ */}
-        
+        {/* InnAI Chat Widget - sempre visível quando autenticado */}
         {user && user.onboarding_completed && (
           <InnAIChatWidget pageContext={currentPageName} />
         )}
