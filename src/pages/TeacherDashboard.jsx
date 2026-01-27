@@ -630,8 +630,6 @@ export default function TeacherDashboard() {
               </CardContent>
             </Card>
           </TabsContent>
-
-          </TabsContent>
         </Tabs>
 
       </div>
