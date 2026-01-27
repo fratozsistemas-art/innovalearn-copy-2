@@ -61,24 +61,18 @@ export default function InnAIChatWidget({ pageContext }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation]);
 
-  // Mostrar sugestão proativa se houver gatilhos de alta prioridade
+  // Mostrar sugestão proativa apenas uma vez por sessão
+  const [proactiveShownOnce, setProactiveShownOnce] = useState(false);
+
   useEffect(() => {
-    if (proactiveTriggers.length > 0 && !isOpen) {
+    if (proactiveTriggers.length > 0 && !isOpen && !proactiveShownOnce) {
       const urgentTrigger = proactiveTriggers.find(t => t.priority === 'urgent' || t.priority === 'high');
       if (urgentTrigger) {
         setShowProactiveSuggestion(true);
-        
-        // Auto-abrir chat após 5 segundos se não interagir
-        const timer = setTimeout(() => {
-          setIsOpen(true);
-          setShowProactiveSuggestion(false);
-          triggerProactiveMessage(urgentTrigger);
-        }, 5000);
-
-        return () => clearTimeout(timer);
+        setProactiveShownOnce(true);
       }
     }
-  }, [proactiveTriggers, isOpen, triggerProactiveMessage]);
+  }, [proactiveTriggers, isOpen, proactiveShownOnce]);
 
   const handleFileSelect = async (e) => {
     const files = Array.from(e.target.files);
@@ -136,11 +130,6 @@ export default function InnAIChatWidget({ pageContext }) {
   const handleProactiveSuggestionClick = () => {
     setIsOpen(true);
     setShowProactiveSuggestion(false);
-    
-    if (proactiveTriggers.length > 0) {
-      const firstTrigger = proactiveTriggers[0];
-      triggerProactiveMessage(firstTrigger);
-    }
   };
 
   // Não renderizar se não houver usuário
