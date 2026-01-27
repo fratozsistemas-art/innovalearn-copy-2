@@ -90,15 +90,6 @@ export default function TeacherDashboard() {
       });
       setAssignments(relevantAssignments);
 
-      // Load student progress for overview
-      if (allStudentEmails.length > 0) {
-        const progressData = await base44.entities.StudentProgress.list('-updated_date', 50);
-        const relevantProgress = progressData.filter(p => 
-          allStudentEmails.includes(p.student_email)
-        );
-        setStudentProgress(relevantProgress);
-      }
-
       // Load at-risk students from all classes
       const allStudents = await base44.entities.User.filter({ user_type: 'aluno' });
       const allStudentEmails = [];
@@ -123,6 +114,15 @@ export default function TeacherDashboard() {
           allStudentEmails.includes(cp.student_email)
         );
         setAtRiskStudents(atRisk);
+      }
+
+      // Load student progress for overview
+      if (allStudentEmails.length > 0) {
+        const progressData = await base44.entities.StudentProgress.list('-updated_date', 50);
+        const relevantProgress = progressData.filter(p => 
+          allStudentEmails.includes(p.student_email)
+        );
+        setStudentProgress(relevantProgress);
       }
 
       // Calculate stats
@@ -631,102 +631,6 @@ export default function TeacherDashboard() {
             </Card>
           </TabsContent>
 
-          {/* Alerts Tab */}
-          <TabsContent value="alerts">
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Award className="w-5 h-5" style={{ color: 'var(--success)' }} />
-                    Minhas Certificações Docentes
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">Total de Lições Certificadas</span>
-                      <Badge style={{ backgroundColor: 'var(--success)', color: 'white' }}>
-                        {stats.certificationsCount} / 272
-                      </Badge>
-                    </div>
-                    <Progress 
-                      value={Math.min((stats.certificationsCount / 272) * 100, 100)} 
-                      className="h-3"
-                    />
-                    
-                    <div className="pt-4 grid grid-cols-4 gap-2">
-                      {Object.entries({
-                        curiosity: { name: 'Curiosity', icon: '🌱', total: 64 },
-                        discovery: { name: 'Discovery', icon: '🔍', total: 64 },
-                        pioneer: { name: 'Pioneer', icon: '🚀', total: 64 },
-                        challenger: { name: 'Challenger', icon: '👑', total: 80 }
-                      }).map(([level, data]) => {
-                        const levelCerts = certifications.filter(c => c.course_level === level).length;
-                        return (
-                          <div key={level} className="p-3 rounded-lg text-center" 
-                            style={{ backgroundColor: 'var(--neutral-light)' }}
-                          >
-                            <div className="text-2xl mb-1">{data.icon}</div>
-                            <div className="text-xs font-semibold">{levelCerts}/{data.total}</div>
-                            <div className="text-xs text-gray-600">{data.name}</div>
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <Button 
-                      className="w-full mt-4"
-                      onClick={() => navigate(createPageUrl("TeacherCertificationDashboard"))}
-                      style={{ backgroundColor: 'var(--primary-teal)', color: 'white' }}
-                    >
-                      Ver Todas as Certificações
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Target className="w-5 h-5" style={{ color: 'var(--accent-orange)' }} />
-                    Próximos Passos
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="p-4 rounded-lg border-l-4" 
-                    style={{ backgroundColor: 'var(--neutral-light)', borderColor: 'var(--accent-orange)' }}
-                  >
-                    <h4 className="font-semibold mb-2">Capacitação Recomendada</h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      Continue sua certificação nas lições não completadas
-                    </p>
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => navigate(createPageUrl("TeacherTraining"))}
-                    >
-                      Iniciar Capacitação
-                    </Button>
-                  </div>
-
-                  <div className="p-4 rounded-lg border-l-4" 
-                    style={{ backgroundColor: 'var(--neutral-light)', borderColor: 'var(--primary-teal)' }}
-                  >
-                    <h4 className="font-semibold mb-2">Revisar Sugestões de IA</h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      {stats.pendingReviewsCount} recomendações aguardando sua revisão
-                    </p>
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => document.querySelector('[value="ai-review"]').click()}
-                    >
-                      Revisar Agora
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </Card>
           </TabsContent>
         </Tabs>
 
