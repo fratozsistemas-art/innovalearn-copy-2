@@ -94,12 +94,6 @@ const navigationStructure = {
       url: createPageUrl("Resources"),
       icon: Library,
     },
-    {
-      title: "Semana 0 (2026)",
-      url: createPageUrl("WeekZero"),
-      icon: Sparkles,
-      restricted: ['administrador', 'coordenador_pedagogico', 'instrutor']
-    },
   ],
   projects: [
     {

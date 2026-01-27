@@ -1,0 +1,306 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════
+   VARK MODE STYLES
+   ═══════════════════════════════════════════════════════════════════ */
+@import './styles/vark-modes.css';
+
+/* ═══════════════════════════════════════════════════════════════════
+   INNOVA ACADEMY - DESIGN SYSTEM CSS VARIABLES
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* ────────────────────────────────────────────────────────────────
+       INNOVA BRAND COLORS (HEX)
+       ──────────────────────────────────────────────────────────────── */
+    
+    /* Primary Teal */
+    --innova-teal-50: #E6F7F6;
+    --innova-teal-100: #B3E8E5;
+    --innova-teal-200: #80D9D4;
+    --innova-teal-300: #4DCAC3;
+    --innova-teal-400: #26BAB1;
+    --innova-teal-500: #00A99D;
+    --innova-teal-600: #00978C;
+    --innova-teal-700: #00857B;
+    --innova-teal-800: #00736A;
+    --innova-teal-900: #006159;
+    
+    /* Primary Navy */
+    --innova-navy-50: #E8EAED;
+    --innova-navy-100: #C5CBCE;
+    --innova-navy-200: #9FA8AE;
+    --innova-navy-300: #79858F;
+    --innova-navy-400: #5E6D78;
+    --innova-navy-500: #2C3E50;
+    --innova-navy-600: #273849;
+    --innova-navy-700: #202F3F;
+    --innova-navy-800: #192736;
+    --innova-navy-900: #0F1A27;
+    
+    /* Accent Orange */
+    --innova-orange-50: #FFF2ED;
+    --innova-orange-100: #FFDDD2;
+    --innova-orange-200: #FFC7B7;
+    --innova-orange-300: #FFB09C;
+    --innova-orange-400: #FF9A81;
+    --innova-orange-500: #FF6F3C;
+    --innova-orange-600: #E65F2F;
+    --innova-orange-700: #CC4F22;
+    --innova-orange-800: #B33F15;
+    --innova-orange-900: #992F08;
+    
+    /* Accent Yellow */
+    --innova-yellow-50: #FFF9E6;
+    --innova-yellow-100: #FFF0B3;
+    --innova-yellow-200: #FFE780;
+    --innova-yellow-300: #FFDD4D;
+    --innova-yellow-400: #FFD41A;
+    --innova-yellow-500: #FFC857;
+    --innova-yellow-600: #E6B14D;
+    --innova-yellow-700: #CC9A43;
+    --innova-yellow-800: #B38339;
+    --innova-yellow-900: #996C2F;
+
+    /* ────────────────────────────────────────────────────────────────
+       NEUTRAL PALETTE
+       ──────────────────────────────────────────────────────────────── */
+    
+    /* Light Neutrals */
+    --neutral-light-50: #FCFCFD;
+    --neutral-light-100: #F8F9FA;
+    --neutral-light-200: #ECF0F1;
+    --neutral-light-300: #DEE2E6;
+    --neutral-light-500: #ADB5BD;
+    
+    /* Dark Neutrals */
+    --neutral-dark-50: #6C757D;
+    --neutral-dark-100: #495057;
+    --neutral-dark-200: #343A40;
+    --neutral-dark-300: #34495E;
+    --neutral-dark-400: #2C3E50;
+    --neutral-dark-500: #212529;
+
+    /* ────────────────────────────────────────────────────────────────
+       SEMANTIC COLORS
+       ──────────────────────────────────────────────────────────────── */
+    
+    /* Success */
+    --success-50: #E8F5E9;
+    --success-500: #27AE60;
+    --success-700: #1E8449;
+    
+    /* Warning */
+    --warning-50: #FFF3E0;
+    --warning-500: #F39C12;
+    --warning-700: #C77B0A;
+    
+    /* Error */
+    --error-50: #FFEBEE;
+    --error-500: #E74C3C;
+    --error-700: #B93629;
+    
+    /* Info */
+    --info-50: #E3F2FD;
+    --info-500: #3498DB;
+    --info-700: #2874A6;
+
+    /* ────────────────────────────────────────────────────────────────
+       SHADCN/UI COMPATIBILITY TOKENS (Light Theme)
+       ──────────────────────────────────────────────────────────────── */
+    
+    --background: #FFFFFF;
+    --foreground: #2C3E50;
+    
+    --card: #FFFFFF;
+    --card-foreground: #2C3E50;
+    
+    --popover: #FFFFFF;
+    --popover-foreground: #2C3E50;
+    
+    --primary: #00A99D;
+    --primary-foreground: #FFFFFF;
+    
+    --secondary: #ECF0F1;
+    --secondary-foreground: #2C3E50;
+    
+    --muted: #F8F9FA;
+    --muted-foreground: #6C757D;
+    
+    --accent: #FF6F3C;
+    --accent-foreground: #FFFFFF;
+    
+    --destructive: #E74C3C;
+    --destructive-foreground: #FFFFFF;
+    
+    --border: #DEE2E6;
+    --input: #ECF0F1;
+    --ring: #00A99D;
+    
+    --radius: 0.75rem;
+
+    /* ────────────────────────────────────────────────────────────────
+       SIDEBAR TOKENS
+       ──────────────────────────────────────────────────────────────── */
+    
+    --sidebar-background: #2C3E50;
+    --sidebar-foreground: #FFFFFF;
+    --sidebar-primary: #00A99D;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #00978C;
+    --sidebar-accent-foreground: #FFFFFF;
+    --sidebar-border: #495057;
+    --sidebar-ring: #00A99D;
+
+    /* ────────────────────────────────────────────────────────────────
+       CHART COLORS
+       ──────────────────────────────────────────────────────────────── */
+    
+    --chart-1: #00A99D;
+    --chart-2: #FF6F3C;
+    --chart-3: #FFC857;
+    --chart-4: #27AE60;
+    --chart-5: #3498DB;
+  }
+
+  .dark {
+    /* ────────────────────────────────────────────────────────────────
+       SHADCN/UI COMPATIBILITY TOKENS (Dark Theme)
+       ──────────────────────────────────────────────────────────────── */
+    
+    --background: #0F1A27;
+    --foreground: #F8F9FA;
+    
+    --card: #192736;
+    --card-foreground: #F8F9FA;
+    
+    --popover: #192736;
+    --popover-foreground: #F8F9FA;
+    
+    --primary: #00A99D;
+    --primary-foreground: #FFFFFF;
+    
+    --secondary: #202F3F;
+    --secondary-foreground: #F8F9FA;
+    
+    --muted: #273849;
+    --muted-foreground: #ADB5BD;
+    
+    --accent: #FF6F3C;
+    --accent-foreground: #FFFFFF;
+    
+    --destructive: #E74C3C;
+    --destructive-foreground: #FFFFFF;
+    
+    --border: #273849;
+    --input: #202F3F;
+    --ring: #00978C;
+    
+    --sidebar-background: #192736;
+    --sidebar-foreground: #F8F9FA;
+    --sidebar-primary: #00A99D;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #00857B;
+    --sidebar-accent-foreground: #FFFFFF;
+    --sidebar-border: #273849;
+    --sidebar-ring: #00978C;
+
+    --chart-1: #00A99D;
+    --chart-2: #FF9A81;
+    --chart-3: #FFD41A;
+    --chart-4: #27AE60;
+    --chart-5: #3498DB;
+  }
+
+  /* ────────────────────────────────────────────────────────────────
+     BASE STYLES
+     ──────────────────────────────────────────────────────────────── */
+  
+  * {
+    @apply border-border;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACCESSIBILITY UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Screen Reader Only - texto visível apenas para screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Indicador de foco para navegação por teclado */
+body.using-keyboard *:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Remover outline quando usando mouse */
+body:not(.using-keyboard) *:focus {
+  outline: none;
+}
+
+/* Skip to main content link (acessibilidade) */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1em;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  text-decoration: none;
+}
+
+.skip-to-main:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1em;
+}
+
+/* Respeitar preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Melhorar contraste em modo de alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --primary: #008080;
+    --innova-navy-500: #1a1a2e;
+    --foreground: #000000;
+    --muted-foreground: #333333;
+  }
+  
+  button, a {
+    border: 2px solid currentColor !important;
+  }
+}

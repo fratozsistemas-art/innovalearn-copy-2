@@ -76,6 +76,7 @@ import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
 import TenantDashboard from './pages/TenantDashboard';
 import UserManagement from './pages/UserManagement';
 import VARKAnalytics from './pages/VARKAnalytics';
+import WeekZero from './pages/WeekZero';
 import __Layout from './Layout.jsx';
 
 
@@ -158,6 +159,7 @@ export const PAGES = {
     "TenantDashboard": TenantDashboard,
     "UserManagement": UserManagement,
     "VARKAnalytics": VARKAnalytics,
+    "WeekZero": WeekZero,
 }
 
 export const pagesConfig = {
