@@ -14,7 +14,12 @@ import {
   Coins,
   Minimize2,
   Maximize2,
-  AlertCircle
+  AlertCircle,
+  Paperclip,
+  Settings,
+  Trash2,
+  Brain,
+  Cpu
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInnAI } from "../hooks/useInnAI";
@@ -29,7 +34,11 @@ export default function InnAIChatWidget({ pageContext }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const [message, setMessage] = useState('');
   const [showProactiveSuggestion, setShowProactiveSuggestion] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [uploadingFiles, setUploadingFiles] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const {
     sendMessage,
@@ -40,6 +49,10 @@ export default function InnAIChatWidget({ pageContext }) {
     triggerProactiveMessage,
     provideFeedback,
     clearConversation,
+    agentType,
+    switchAgent,
+    llmProvider,
+    switchLLMProvider,
     error
   } = useInnAI(pageContext);
 
@@ -67,13 +80,44 @@ export default function InnAIChatWidget({ pageContext }) {
     }
   }, [proactiveTriggers, isOpen, triggerProactiveMessage]);
 
+  const handleFileSelect = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    setUploadingFiles(true);
+    try {
+      const uploadedFiles = await Promise.all(
+        files.map(async (file) => {
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          const result = await base44.integrations.Core.UploadFile({ file });
+          return {
+            filename: file.name,
+            url: result.file_url,
+            type: file.type
+          };
+        })
+      );
+      
+      setSelectedFiles(prev => [...prev, ...uploadedFiles]);
+    } catch (err) {
+      console.error('Erro no upload:', err);
+    } finally {
+      setUploadingFiles(false);
+    }
+  };
+
   const handleSend = async () => {
-    if (!message.trim() || loading) return;
+    if ((!message.trim() && selectedFiles.length === 0) || loading) return;
 
     const userMessage = message;
-    setMessage('');
+    const attachments = selectedFiles;
     
-    await sendMessage(userMessage);
+    setMessage('');
+    setSelectedFiles([]);
+    
+    await sendMessage(userMessage, { attachments });
   };
 
   const handleKeyPress = (e) => {
@@ -222,6 +266,24 @@ export default function InnAIChatWidget({ pageContext }) {
                     variant="ghost"
                     size="sm"
                     className="h-8 w-8 p-0 text-white hover:bg-white/20"
+                    onClick={() => setShowSettings(!showSettings)}
+                    title="Configurações"
+                  >
+                    <Settings className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 text-white hover:bg-white/20"
+                    onClick={clearConversation}
+                    title="Nova conversa"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 text-white hover:bg-white/20"
                     onClick={() => setIsMinimized(!isMinimized)}
                   >
                     {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
@@ -239,6 +301,67 @@ export default function InnAIChatWidget({ pageContext }) {
 
               {!isMinimized && (
                 <>
+                  {/* Settings Panel */}
+                  {showSettings && (
+                    <div className="p-4 border-b bg-white">
+                      <div className="space-y-3">
+                        <div>
+                          <label className="text-xs font-semibold mb-2 block">Modo de Conversa</label>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              variant={agentType === 'innai' ? 'default' : 'outline'}
+                              onClick={() => switchAgent('innai')}
+                              className="flex-1"
+                            >
+                              <Sparkles className="w-3 h-3 mr-1" />
+                              InnAI
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant={agentType === 'metacognitive_coach' ? 'default' : 'outline'}
+                              onClick={() => switchAgent('metacognitive_coach')}
+                              className="flex-1"
+                            >
+                              <Brain className="w-3 h-3 mr-1" />
+                              Coach
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-xs font-semibold mb-2 block">Modelo de IA</label>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              variant={llmProvider === 'openai' ? 'default' : 'outline'}
+                              onClick={() => switchLLMProvider('openai')}
+                              className="flex-1 text-xs"
+                            >
+                              OpenAI
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant={llmProvider === 'anthropic' ? 'default' : 'outline'}
+                              onClick={() => switchLLMProvider('anthropic')}
+                              className="flex-1 text-xs"
+                            >
+                              Claude
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant={llmProvider === 'maritaca' ? 'default' : 'outline'}
+                              onClick={() => switchLLMProvider('maritaca')}
+                              className="flex-1 text-xs"
+                            >
+                              Maritaca
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Mensagens */}
                   <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
                     {conversation.length === 0 && (
@@ -269,6 +392,18 @@ export default function InnAIChatWidget({ pageContext }) {
                               </Badge>
                             )}
                             <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                            
+                            {/* Attachments */}
+                            {msg.attachments && msg.attachments.length > 0 && (
+                              <div className="mt-2 flex flex-wrap gap-2">
+                                {msg.attachments.map((file, idx) => (
+                                  <div key={idx} className="flex items-center gap-2 p-2 bg-gray-100 rounded text-xs">
+                                    <Paperclip className="w-3 h-3" />
+                                    <span className="truncate max-w-[150px]">{file.filename}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                             
                             {msg.role === 'assistant' && !msg.error && (
                               <div className="flex items-center gap-2 mt-2 pt-2 border-t">
@@ -352,19 +487,54 @@ export default function InnAIChatWidget({ pageContext }) {
                   </div>
 
                   {/* Input */}
-                  <div className="p-4 border-t bg-white">
+                  <div className="p-4 border-t bg-white space-y-2">
+                    {/* Selected Files Preview */}
+                    {selectedFiles.length > 0 && (
+                      <div className="flex flex-wrap gap-2 pb-2 border-b">
+                        {selectedFiles.map((file, idx) => (
+                          <div key={idx} className="flex items-center gap-2 px-2 py-1 bg-blue-50 rounded text-xs">
+                            <Paperclip className="w-3 h-3" />
+                            <span className="truncate max-w-[120px]">{file.filename}</span>
+                            <button
+                              onClick={() => setSelectedFiles(prev => prev.filter((_, i) => i !== idx))}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-2">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileSelect}
+                        className="hidden"
+                        multiple
+                        accept="image/*,.pdf,.txt,.doc,.docx"
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={loading || uploadingFiles}
+                        title="Anexar arquivo"
+                      >
+                        <Paperclip className="w-4 h-4" />
+                      </Button>
                       <Input
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        placeholder="Digite sua dúvida sobre IA..."
+                        placeholder={agentType === 'metacognitive_coach' ? 'Reflita sobre seu aprendizado...' : 'Digite sua dúvida sobre IA...'}
                         className="flex-1"
                         disabled={loading}
                       />
                       <Button
                         onClick={handleSend}
-                        disabled={loading || !message.trim()}
+                        disabled={loading || (!message.trim() && selectedFiles.length === 0)}
                         style={{ backgroundColor: personaColor, color: 'white' }}
                       >
                         <Send className="w-4 h-4" />

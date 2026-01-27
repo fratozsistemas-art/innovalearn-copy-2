@@ -10,18 +10,21 @@ export function useInnAI(pageContext = null) {
   const queryClient = useQueryClient();
   
   const [conversation, setConversation] = useState([]);
+  const [conversationId, setConversationId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [context, setContext] = useState(null);
   const [proactiveTriggers, setProactiveTriggers] = useState([]);
   const [interactionStartTime, setInteractionStartTime] = useState(null);
+  const [agentType, setAgentType] = useState('innai'); // 'innai' or 'metacognitive_coach'
+  const [llmProvider, setLlmProvider] = useState('openai'); // 'openai', 'anthropic', 'maritaca'
 
-  // Construir contexto quando usuário carregar
+  // Construir contexto e carregar/criar conversa
   useEffect(() => {
     if (user?.email && user?.onboarding_completed) {
       console.log('🤖 InnAI: Construindo contexto para', user.email);
       buildStudentContext(user.email, pageContext)
-        .then(ctx => {
+        .then(async (ctx) => {
           console.log('✅ InnAI: Contexto construído', ctx);
           setContext(ctx);
           
@@ -29,6 +32,41 @@ export function useInnAI(pageContext = null) {
           const triggers = detectProactiveTriggers(ctx);
           console.log('🎯 InnAI: Triggers detectados:', triggers.length);
           setProactiveTriggers(triggers);
+
+          // Carregar ou criar conversa ativa
+          try {
+            const existingConversations = await base44.entities.InnAIConversation.filter({
+              student_email: user.email,
+              archived: false
+            }, '-last_message_at', 1);
+
+            if (existingConversations.length > 0) {
+              // Carregar conversa mais recente
+              const conv = existingConversations[0];
+              setConversationId(conv.conversation_id);
+              setConversation(conv.messages || []);
+              setAgentType(conv.agent_type || 'innai');
+              setLlmProvider(conv.llm_provider || 'openai');
+              console.log('📖 InnAI: Conversa carregada:', conv.conversation_id);
+            } else {
+              // Criar nova conversa
+              const newConvId = `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+              await base44.entities.InnAIConversation.create({
+                student_email: user.email,
+                conversation_id: newConvId,
+                title: 'Nova Conversa',
+                messages: [],
+                agent_type: 'innai',
+                llm_provider: 'openai',
+                context_snapshot: ctx,
+                last_message_at: new Date().toISOString()
+              });
+              setConversationId(newConvId);
+              console.log('🆕 InnAI: Nova conversa criada:', newConvId);
+            }
+          } catch (err) {
+            console.error('⚠️ InnAI: Erro gerenciando conversa:', err);
+          }
         })
         .catch(err => {
           console.error('❌ InnAI: Erro construindo contexto:', err);
@@ -44,7 +82,7 @@ export function useInnAI(pageContext = null) {
       return null;
     }
     
-    if (!userMessage.trim()) {
+    if (!userMessage.trim() && !options.attachments) {
       console.warn('⚠️ InnAI: Mensagem vazia');
       return null;
     }
@@ -58,28 +96,64 @@ export function useInnAI(pageContext = null) {
     const newUserMessage = {
       role: 'user',
       content: userMessage,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      attachments: options.attachments || []
     };
     
     setConversation(prev => [...prev, newUserMessage]);
 
     try {
-      // Selecionar persona baseado no nível
-      const explorerLevel = user.explorer_level || 'curiosity';
-      const persona = PERSONAS[explorerLevel] || PERSONAS.curiosity;
-      
-      console.log('🎭 InnAI: Usando persona:', explorerLevel);
+      let response;
 
-      // Construir prompt com contexto
-      const contextPrompt = buildContextPrompt(context, user, conversation, userMessage, explorerLevel);
-      
-      console.log('🔄 InnAI: Chamando LLM...');
+      if (agentType === 'metacognitive_coach') {
+        // Usar agente metacognitivo
+        console.log('🧠 InnAI: Usando metacognitive_coach agent');
+        
+        // Criar conversa de agente se necessário
+        const agentConv = await base44.agents.createConversation({
+          agent_name: 'metacognitive_coach',
+          metadata: { student_email: user.email }
+        });
 
-      // Chamar LLM
-      const response = await base44.integrations.Core.InvokeLLM({
-        prompt: `${persona.systemPrompt}\n\n${contextPrompt}`,
-        add_context_from_internet: options.needsExternalInfo || false
-      });
+        // Enviar mensagem ao agente
+        await base44.agents.addMessage(agentConv, {
+          role: 'user',
+          content: userMessage,
+          file_urls: options.attachments?.map(a => a.url) || []
+        });
+
+        // Aguardar resposta (polling simplificado - em produção usar WebSocket)
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        const updatedConv = await base44.agents.getConversation(agentConv.id);
+        const lastMessage = updatedConv.messages[updatedConv.messages.length - 1];
+        response = lastMessage.content;
+
+      } else {
+        // Usar InnAI tradicional
+        const explorerLevel = user.explorer_level || 'curiosity';
+        const persona = PERSONAS[explorerLevel] || PERSONAS.curiosity;
+        
+        console.log(`🎭 InnAI: Usando persona ${explorerLevel} com ${llmProvider}`);
+
+        // Construir prompt com contexto
+        const contextPrompt = buildContextPrompt(context, user, conversation, userMessage, explorerLevel);
+        
+        console.log('🔄 InnAI: Chamando LLM...');
+
+        // Preparar parâmetros baseados no provider
+        const llmParams = {
+          prompt: `${persona.systemPrompt}\n\n${contextPrompt}`,
+          add_context_from_internet: options.needsExternalInfo || false
+        };
+
+        // Se houver anexos, adicionar file_urls
+        if (options.attachments && options.attachments.length > 0) {
+          llmParams.file_urls = options.attachments.map(a => a.url);
+        }
+
+        // Chamar LLM (Core.InvokeLLM usa o provider configurado)
+        response = await base44.integrations.Core.InvokeLLM(llmParams);
+      }
 
       console.log('✅ InnAI: Resposta recebida');
 
@@ -92,7 +166,37 @@ export function useInnAI(pageContext = null) {
         gamificationReward: detectRewardInResponse(response)
       };
 
-      setConversation(prev => [...prev, assistantMessage]);
+      const updatedConversation = [...conversation, newUserMessage, assistantMessage];
+      setConversation(updatedConversation);
+
+      // Atualizar conversa persistida
+      if (conversationId) {
+        try {
+          const conversations = await base44.entities.InnAIConversation.filter({
+            conversation_id: conversationId
+          });
+          
+          if (conversations.length > 0) {
+            const conv = conversations[0];
+            
+            // Gerar título se for a primeira mensagem real
+            let title = conv.title;
+            if (updatedConversation.length === 2 && title === 'Nova Conversa') {
+              title = userMessage.substring(0, 50) + (userMessage.length > 50 ? '...' : '');
+            }
+            
+            await base44.entities.InnAIConversation.update(conv.id, {
+              messages: updatedConversation,
+              last_message_at: new Date().toISOString(),
+              title,
+              agent_type: agentType,
+              llm_provider: llmProvider
+            });
+          }
+        } catch (convError) {
+          console.error('⚠️ InnAI: Erro atualizando conversa:', convError);
+        }
+      }
 
       // Salvar log da interação
       const interactionDuration = interactionStartTime 
@@ -102,14 +206,16 @@ export function useInnAI(pageContext = null) {
       try {
         await base44.entities.InnAIInteractionLog.create({
           student_email: user.email,
-          persona_level: explorerLevel,
+          persona_level: user.explorer_level || 'curiosity',
           user_message: userMessage,
           assistant_message: response,
           context_snapshot: context,
           suggested_actions: assistantMessage.suggestedActions,
           gamification_reward: assistantMessage.gamificationReward,
           interaction_duration_seconds: interactionDuration,
-          proactive_trigger: options.proactiveTrigger || null
+          proactive_trigger: options.proactiveTrigger || null,
+          agent_type: agentType,
+          llm_provider: llmProvider
         });
       } catch (logError) {
         console.error('⚠️ InnAI: Erro salvando log (não crítico):', logError);
@@ -225,22 +331,72 @@ export function useInnAI(pageContext = null) {
     }
   }, [user]);
 
-  // Limpar conversa
-  const clearConversation = useCallback(() => {
-    setConversation([]);
-    console.log('🧹 InnAI: Conversa limpa');
+  // Limpar conversa (arquivar e criar nova)
+  const clearConversation = useCallback(async () => {
+    if (conversationId && user) {
+      try {
+        // Arquivar conversa atual
+        const conversations = await base44.entities.InnAIConversation.filter({
+          conversation_id: conversationId
+        });
+        if (conversations.length > 0) {
+          await base44.entities.InnAIConversation.update(conversations[0].id, {
+            archived: true
+          });
+        }
+
+        // Criar nova conversa
+        const newConvId = `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        await base44.entities.InnAIConversation.create({
+          student_email: user.email,
+          conversation_id: newConvId,
+          title: 'Nova Conversa',
+          messages: [],
+          agent_type: agentType,
+          llm_provider: llmProvider,
+          context_snapshot: context,
+          last_message_at: new Date().toISOString()
+        });
+        
+        setConversationId(newConvId);
+        setConversation([]);
+        console.log('🧹 InnAI: Nova conversa criada');
+      } catch (err) {
+        console.error('⚠️ InnAI: Erro ao criar nova conversa:', err);
+        setConversation([]);
+      }
+    } else {
+      setConversation([]);
+    }
+  }, [conversationId, user, agentType, llmProvider, context]);
+
+  // Trocar tipo de agente
+  const switchAgent = useCallback((newAgentType) => {
+    setAgentType(newAgentType);
+    console.log('🔄 InnAI: Agente trocado para', newAgentType);
+  }, []);
+
+  // Trocar provider LLM
+  const switchLLMProvider = useCallback((newProvider) => {
+    setLlmProvider(newProvider);
+    console.log('🔄 InnAI: Provider trocado para', newProvider);
   }, []);
 
   return {
     sendMessage,
     conversation,
+    conversationId,
     loading,
     error,
     context,
     proactiveTriggers,
     triggerProactiveMessage,
     provideFeedback,
-    clearConversation
+    clearConversation,
+    agentType,
+    switchAgent,
+    llmProvider,
+    switchLLMProvider
   };
 }
 
