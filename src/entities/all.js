@@ -1,24 +1,44 @@
-// Placeholder entities for InnovaLearn application
-// These are mock entities that will be replaced with actual Base44 entities
+// Base44 SDK Entity Imports
+// These entities use the Base44 client pattern for data access
+// The Base44 vite plugin with legacySDKImports handles the transformation
 
+// Note: These are placeholder exports that will be transformed by the Base44 vite plugin
+// when legacySDKImports is enabled. The actual entity handlers are created at runtime
+// by the Base44 client.
+
+// Core Educational Entities
 export const AIEthicsCourse = {};
 export const Assignment = {};
-export const ChallengerProject = {};
-export const ContentGap = {};
 export const Course = {};
-export const DiscoveryProject = {};
 export const Enrollment = {};
-export const ExternalResource = {};
-export const GamificationProfile = {};
 export const Lesson = {};
-export const LessonPlan = {};
 export const Module = {};
-export const Notification = {};
-export const PioneerProject = {};
-export const PythonAssessment = {};
-export const Resource = {};
 export const StudentProgress = {};
+
+// Project-Based Learning Entities
+export const ChallengerProject = {};
+export const DiscoveryProject = {};
+export const PioneerProject = {};
+
+// Assessment Entities
+export const PythonAssessment = {};
 export const TaskSubmission = {};
+
+// Resource Management Entities
+export const ExternalResource = {};
+export const Resource = {};
+export const ContentGap = {};
+
+// Teacher & Admin Entities
+export const LessonPlan = {};
 export const TeacherTrainingCourse = {};
 export const TeacherTrainingProgress = {};
+
+// Gamification Entities
+export const GamificationProfile = {};
+
+// Communication Entities
+export const Notification = {};
+
+// User Entity
 export const User = {};
