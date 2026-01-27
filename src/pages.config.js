@@ -63,6 +63,7 @@ import Syllabus from './pages/Syllabus';
 import SystemHealth from './pages/SystemHealth';
 import TeacherCertificationCourse from './pages/TeacherCertificationCourse';
 import TeacherCertificationDashboard from './pages/TeacherCertificationDashboard';
+import TeacherCertifications from './pages/TeacherCertifications';
 import TeacherDashboard from './pages/TeacherDashboard';
 import TeacherFeedbackReview from './pages/TeacherFeedbackReview';
 import TeacherLessonPage from './pages/TeacherLessonPage';
@@ -71,7 +72,7 @@ import TeacherTraining from './pages/TeacherTraining';
 import TechnicalGapsAnalysis from './pages/TechnicalGapsAnalysis';
 import TenantDashboard from './pages/TenantDashboard';
 import VARKAnalytics from './pages/VARKAnalytics';
-import TeacherCertifications from './pages/TeacherCertifications';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import __Layout from './Layout.jsx';
 
 
@@ -141,6 +142,7 @@ export const PAGES = {
     "SystemHealth": SystemHealth,
     "TeacherCertificationCourse": TeacherCertificationCourse,
     "TeacherCertificationDashboard": TeacherCertificationDashboard,
+    "TeacherCertifications": TeacherCertifications,
     "TeacherDashboard": TeacherDashboard,
     "TeacherFeedbackReview": TeacherFeedbackReview,
     "TeacherLessonPage": TeacherLessonPage,
@@ -149,7 +151,7 @@ export const PAGES = {
     "TechnicalGapsAnalysis": TechnicalGapsAnalysis,
     "TenantDashboard": TenantDashboard,
     "VARKAnalytics": VARKAnalytics,
-    "TeacherCertifications": TeacherCertifications,
+    "PrivacyPolicy": PrivacyPolicy,
 }
 
 export const pagesConfig = {
