@@ -275,7 +275,7 @@ function LayoutContent({ children, currentPageName }) {
             </div>
           </SidebarHeader>
 
-          <SidebarContent className="p-3 overflow-y-auto">
+          <SidebarContent className="p-3 overflow-y-auto bg-[#2C3E50]">
             {renderNavigationGroup(navigationStructure.main)}
             {renderNavigationGroup(navigationStructure.learning, "Aprendizado")}
             {renderNavigationGroup(navigationStructure.projects, "Projetos")}
