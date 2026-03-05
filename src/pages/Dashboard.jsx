@@ -245,13 +245,31 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Student-specific: Insights + Overdue + Recommendations */}
+        {!isEducator && (
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-1">
+              <StudentInsights user={user} enrollments={enrollments} assignments={assignments} />
+            </div>
+            <div className="lg:col-span-1">
+              <OverdueAssignments assignments={assignments} />
+            </div>
+            <div className="lg:col-span-1">
+              <SmartRecommendations userId={user?.id} limit={3} />
+            </div>
+          </div>
+        )}
+
+        {/* Upcoming assignments for all */}
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <UpcomingAssignments assignments={assignments} />
+            <UpcomingAssignments assignments={assignments.filter(a => a.status === 'pending' && new Date(a.due_date) >= new Date()).slice(0, 5)} />
           </div>
-          <div>
-            <SmartRecommendations userId={user?.id} limit={3} />
-          </div>
+          {isEducator && (
+            <div>
+              <SmartRecommendations userId={user?.id} limit={3} />
+            </div>
+          )}
         </div>
 
       </div>
