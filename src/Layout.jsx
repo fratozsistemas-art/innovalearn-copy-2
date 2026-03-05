@@ -331,7 +331,7 @@ function LayoutContent({ children, currentPageName }) {
         </Sidebar>
 
         <div className="flex-1 flex flex-col overflow-hidden">
-          <header className="bg-white border-b border-neutral-light-300 px-6 py-4 flex items-center justify-between">
+          <header className="bg-white border-b border-[#DEE2E6] px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <SidebarTrigger className="lg:hidden" />
               <h1 className="text-2xl font-heading font-bold text-innova-navy-500">
