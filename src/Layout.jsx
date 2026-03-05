@@ -347,7 +347,7 @@ function LayoutContent({ children, currentPageName }) {
                       {user.name?.charAt(0).toUpperCase() || 'U'}
                     </span>
                   </div>
-                  <span className="text-sm font-medium text-gray-700 hidden md:block">
+                  <span className="text-sm font-semibold text-[#1F2937] hidden md:block">
                     {user.name}
                   </span>
                 </div>
