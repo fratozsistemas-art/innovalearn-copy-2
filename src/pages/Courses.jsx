@@ -27,6 +27,7 @@ import { useCurrentUser } from "@/components/hooks/useUser";
 import { useModules } from "@/components/hooks/useModules";
 import { useLessons } from "@/components/hooks/useLessons";
 import { PageLoadingSkeleton } from "@/components/common/LoadingSkeleton";
+import CourseFeedbackPanel from "@/components/feedback/CourseFeedbackPanel";
 
 // --- Course Data (unchanged from original file) ---
 const courseData = {
