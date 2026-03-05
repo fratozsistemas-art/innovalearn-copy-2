@@ -223,19 +223,19 @@ export default function DashboardPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
                 <div className="text-3xl font-bold mb-1">{modules.length}</div>
-                <div className="text-sm opacity-90">Módulos Matriculados</div>
+                <div className="text-sm font-semibold opacity-100">Módulos Matriculados</div>
               </div>
-              <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+              <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
                 <div className="text-3xl font-bold mb-1">{enrollments.length}</div>
-                <div className="text-sm opacity-90">Matrículas Ativas</div>
+                <div className="text-sm font-semibold opacity-100">Matrículas Ativas</div>
               </div>
-              <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+              <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
                 <div className="text-3xl font-bold mb-1">{averageProgress}%</div>
-                <div className="text-sm opacity-90">Progresso Médio</div>
+                <div className="text-sm font-semibold opacity-100">Progresso Médio</div>
               </div>
-              <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+              <div className="p-4 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
                 <div className="text-3xl font-bold mb-1">{assignments.length}</div>
-                <div className="text-sm opacity-90">Tarefas Pendentes</div>
+                <div className="text-sm font-semibold opacity-100">Tarefas Pendentes</div>
               </div>
             </div>
           </div>
