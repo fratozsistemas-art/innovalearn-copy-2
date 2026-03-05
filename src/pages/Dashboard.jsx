@@ -22,6 +22,7 @@ import AICoachWidget from "../components/dashboard/AICoachWidget";
 import StudentInsights from "../components/dashboard/StudentInsights";
 import OverdueAssignments from "../components/dashboard/OverdueAssignments";
 import DashboardRanking from "../components/dashboard/DashboardRanking";
+import AIMentoringWidget from "../components/dashboard/AIMentoringWidget";
 
 const levelInfo = {
   curiosity: { name: 'Curiosity', color: 'var(--info)', totalModules: 4, age: '6+' },
