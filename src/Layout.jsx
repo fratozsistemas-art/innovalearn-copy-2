@@ -312,9 +312,9 @@ function LayoutContent({ children, currentPageName }) {
           <SidebarFooter className="border-t border-neutral-light-300 p-4">
             <div className="flex items-center justify-between gap-2">
               <Link to={createPageUrl("Profile")}>
-                <Button variant="ghost" size="sm" className="flex items-center gap-2 hover:bg-innova-teal-50">
+                <Button variant="ghost" size="sm" className="flex items-center gap-2 text-[#F8F9FA] hover:bg-white/10">
                   <User className="w-4 h-4" />
-                  <span className="text-sm font-medium">Perfil</span>
+                  <span className="text-sm font-semibold">Perfil</span>
                 </Button>
               </Link>
               <Button 
