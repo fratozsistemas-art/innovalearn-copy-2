@@ -186,6 +186,17 @@ export default function DashboardPage() {
     );
   }
 
+  const { data: gamificationProfile } = useQuery({
+    queryKey: ['gamification-profile', user?.email],
+    queryFn: async () => {
+      if (!user?.email || isEducator) return null;
+      const profiles = await base44.entities.GamificationProfile.filter({ student_email: user.email });
+      return profiles[0] || null;
+    },
+    enabled: !!user?.email && !isEducator,
+    staleTime: 1000 * 60 * 5,
+  });
+
   return (
     <div className="p-4 md:p-8" style={{ backgroundColor: 'var(--neutral-light)' }}>
       <div className="max-w-7xl mx-auto space-y-8">
