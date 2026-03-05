@@ -342,8 +342,8 @@ function LayoutContent({ children, currentPageName }) {
               <NotificationBell />
               {user && (
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-innova-teal-100 flex items-center justify-center">
-                    <span className="text-sm font-semibold text-innova-teal-700">
+                  <div className="w-8 h-8 rounded-full bg-[#007A72] flex items-center justify-center">
+                    <span className="text-sm font-bold text-white">
                       {user.name?.charAt(0).toUpperCase() || 'U'}
                     </span>
                   </div>
