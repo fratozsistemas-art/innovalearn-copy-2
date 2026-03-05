@@ -216,7 +216,7 @@ export default function DashboardPage() {
             <h1 className="text-4xl font-heading font-bold mb-3">
               Bem-vindo, {user?.explorer_name || user?.full_name?.split(' ')[0] || "Explorador"} 👋
             </h1>
-            <p className="text-xl opacity-90 mb-6">
+            <p className="text-xl font-medium opacity-95 mb-6">
               Continue sua jornada no programa {currentLevel.name}
             </p>
             
