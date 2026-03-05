@@ -247,7 +247,7 @@ function LayoutContent({ children, currentPageName }) {
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-neutral-light-200">
         
-        <Sidebar className="border-r border-neutral-light-300 bg-white">
+        <Sidebar className="border-r border-[#4B5563] bg-[#2C3E50]">
           
           <SidebarHeader className="border-b border-[#4B5563] p-6 bg-gradient-to-br from-[#007A72] to-[#2C3E50]">
             <div className="flex items-center gap-3">
