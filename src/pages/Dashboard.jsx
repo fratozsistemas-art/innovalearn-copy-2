@@ -58,7 +58,7 @@ const CourseProgress = ({ enrollments, modules, hasActiveEnrollment, currentLeve
                         <h4 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
                           Módulo {module.order}: {module.title}
                         </h4>
-                        <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                        <p className="text-sm text-[#4B5563]">
                           Semestre {module.semester}
                         </p>
                       </div>
