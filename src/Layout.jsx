@@ -334,7 +334,7 @@ function LayoutContent({ children, currentPageName }) {
           <header className="bg-white border-b border-[#DEE2E6] px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <SidebarTrigger className="lg:hidden" />
-              <h1 className="text-2xl font-heading font-bold text-innova-navy-500">
+              <h1 className="text-2xl font-heading font-bold text-[#1F2937]">
                 {currentPageName || 'InnovaLearn'}
               </h1>
             </div>
