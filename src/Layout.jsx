@@ -249,7 +249,7 @@ function LayoutContent({ children, currentPageName }) {
         
         <Sidebar className="border-r border-neutral-light-300 bg-white">
           
-          <SidebarHeader className="border-b border-neutral-light-300 p-6 bg-gradient-to-br from-innova-teal-500 to-innova-teal-600">
+          <SidebarHeader className="border-b border-[#4B5563] p-6 bg-gradient-to-br from-[#007A72] to-[#2C3E50]">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
