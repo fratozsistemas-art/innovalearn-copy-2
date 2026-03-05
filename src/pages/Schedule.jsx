@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from "react";
-import { Course, Enrollment } from "@/entities/all";
-import { User } from "@/entities/User";
+import { base44 } from "@/api/base44Client";
+const Course = base44.entities.Course;
+const Enrollment = base44.entities.Enrollment;
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -78,7 +78,7 @@ export default function SchedulePage() {
   }, []);
 
   const loadData = async () => {
-    const userData = await User.me();
+    const userData = await base44.auth.me();
     setUser(userData);
 
     const enrollmentsData = await Enrollment.filter({ student_email: userData.email });
