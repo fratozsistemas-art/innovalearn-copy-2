@@ -289,6 +289,9 @@ export default function DashboardPage() {
                 </div>
               </div>
 
+              {/* AI Mentoring Widget */}
+              <AIMentoringWidget user={user} enrollments={enrollments} assignments={assignments} />
+
               <div className="grid lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2">
                   <UpcomingAssignments assignments={assignments.filter(a => a.status === 'pending' && new Date(a.due_date) >= new Date()).slice(0, 5)} />
