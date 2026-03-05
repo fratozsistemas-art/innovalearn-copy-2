@@ -309,7 +309,7 @@ function LayoutContent({ children, currentPageName }) {
             )}
           </SidebarContent>
 
-          <SidebarFooter className="border-t border-neutral-light-300 p-4">
+          <SidebarFooter className="border-t border-[#4B5563] p-4">
             <div className="flex items-center justify-between gap-2">
               <Link to={createPageUrl("Profile")}>
                 <Button variant="ghost" size="sm" className="flex items-center gap-2 text-[#F8F9FA] hover:bg-white/10">
