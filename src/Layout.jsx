@@ -225,8 +225,8 @@ function LayoutContent({ children, currentPageName }) {
                     asChild
                     className={`mb-1 rounded-xl transition-all duration-200 ${
                       isActive
-                        ? 'bg-innova-teal-500 text-white shadow-md'
-                        : 'text-gray-700 hover:bg-innova-teal-50'
+                        ? 'bg-[#007A72] text-white shadow-md'
+                        : 'text-[#F8F9FA] hover:bg-white/10'
                     }`}
                   >
                     <Link to={item.url} className="flex items-center gap-3 px-4 py-2.5">
