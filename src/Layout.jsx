@@ -295,7 +295,7 @@ function LayoutContent({ children, currentPageName }) {
                     <SidebarMenuItem>
                       <SidebarMenuButton
                         asChild
-                        className="mb-1 rounded-xl text-gray-700 hover:bg-red-50"
+                        className="mb-1 rounded-xl text-[#F8F9FA] hover:bg-white/10"
                       >
                         <Link to={createPageUrl("DebugDashboard")} className="flex items-center gap-3 px-4 py-2.5">
                           <AlertTriangle className="w-5 h-5 flex-shrink-0" />
