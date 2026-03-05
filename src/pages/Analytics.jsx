@@ -16,9 +16,51 @@ import {
   Users,
   BookOpen,
   Activity,
-  Eye
+  Eye,
+  Star,
+  MessageSquare,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import CourseFeedbackPanel, { useCourseFeedbackSummary } from "@/components/feedback/CourseFeedbackPanel";
+
+// Inline course names mapping
+const COURSE_NAMES = {
+  curiosity: "Curiosity",
+  discovery: "Discovery",
+  pioneer: "Pioneer",
+  challenger: "Challenger",
+};
+
+function CourseFeedbackSection({ courseId, courseName, feedbackSummary, user }) {
+  const [expanded, setExpanded] = useState(false);
+  const summary = feedbackSummary[courseId];
+
+  return (
+    <div className="mt-4 border-t pt-4">
+      <button
+        className="flex items-center gap-2 text-sm font-semibold w-full text-left"
+        style={{ color: 'var(--primary-teal)' }}
+        onClick={() => setExpanded(!expanded)}
+      >
+        <MessageSquare className="w-4 h-4" />
+        Avaliações de Alunos — {courseName}
+        {summary?.count > 0 && (
+          <Badge className="bg-yellow-100 text-yellow-800 border-0 ml-2">
+            <Star className="w-3 h-3 mr-1" fill="#FFC857" stroke="#FFC857" />
+            {summary.avgRating} ({summary.count})
+          </Badge>
+        )}
+        {expanded ? <ChevronUp className="w-4 h-4 ml-auto" /> : <ChevronDown className="w-4 h-4 ml-auto" />}
+      </button>
+
+      {expanded && (
+        <CourseFeedbackPanel courseId={courseId} user={user} />
+      )}
+    </div>
+  );
+}
 
 export default function AnalyticsPage() {
   const [user, setUser] = useState(null);
@@ -29,6 +71,8 @@ export default function AnalyticsPage() {
   const [atRiskStudents, setAtRiskStudents] = useState([]);
   const [insights, setInsights] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const feedbackSummary = useCourseFeedbackSummary(Object.keys(COURSE_NAMES));
 
   const analyzeRisks = useCallback((students, enrollments, assignments) => {
     const risks = [];
@@ -128,7 +172,7 @@ export default function AnalyticsPage() {
         type: 'warning',
         title: 'Cursos com Baixo Engajamento',
         description: `${lowEngagementCourses.length} curso(s) com progresso médio abaixo de 40%`,
-        action: 'Revisar conteúdo e metodologia',
+        action: 'Revisar conteúdo e metodologia — veja o feedback dos alunos na aba Feedback por Curso',
         data: lowEngagementCourses.slice(0, 3)
       });
     }
@@ -317,7 +361,7 @@ export default function AnalyticsPage() {
         </div>
 
         <Tabs defaultValue="risks" className="w-full">
-          <TabsList className="grid w-full grid-cols-3" style={{ backgroundColor: 'var(--background)' }}>
+          <TabsList className="grid w-full grid-cols-4" style={{ backgroundColor: 'var(--background)' }}>
             <TabsTrigger value="risks">
               <TrendingDown className="w-4 h-4 mr-2" />
               Alunos em Risco
@@ -329,6 +373,10 @@ export default function AnalyticsPage() {
             <TabsTrigger value="vark">
               <Target className="w-4 h-4 mr-2" />
               Análise VARK
+            </TabsTrigger>
+            <TabsTrigger value="feedback">
+              <Star className="w-4 h-4 mr-2" />
+              Feedback por Curso
             </TabsTrigger>
           </TabsList>
 
@@ -376,25 +424,19 @@ export default function AnalyticsPage() {
 
                           <div className="grid grid-cols-3 gap-4 mb-4">
                             <div>
-                              <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>
-                                Progresso Médio
-                              </p>
+                              <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>Progresso Médio</p>
                               <p className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
                                 {Math.round(risk.avgProgress)}%
                               </p>
                             </div>
                             <div>
-                              <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>
-                                Tarefas Atrasadas
-                              </p>
+                              <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>Tarefas Atrasadas</p>
                               <p className="text-xl font-bold" style={{ color: 'var(--error)' }}>
                                 {risk.lateAssignments}
                               </p>
                             </div>
                             <div>
-                              <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>
-                                Taxa de Conclusão
-                              </p>
+                              <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>Taxa de Conclusão</p>
                               <p className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
                                 {Math.round(risk.completionRate)}%
                               </p>
@@ -402,16 +444,10 @@ export default function AnalyticsPage() {
                           </div>
 
                           <div className="space-y-2">
-                            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-                              Fatores de Risco:
-                            </p>
+                            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Fatores de Risco:</p>
                             <ul className="space-y-1">
                               {risk.factors.map((factor, i) => (
-                                <li 
-                                  key={i} 
-                                  className="text-sm flex items-start gap-2"
-                                  style={{ color: 'var(--text-secondary)' }}
-                                >
+                                <li key={i} className="text-sm flex items-start gap-2" style={{ color: 'var(--text-secondary)' }}>
                                   <AlertTriangle className="w-4 h-4 mt-0.5" style={{ color: riskColor.bg }} />
                                   {factor}
                                 </li>
@@ -471,6 +507,42 @@ export default function AnalyticsPage() {
                             {insight.action}
                           </p>
                         </div>
+
+                        {/* Integração com feedback para cursos com baixo engajamento */}
+                        {insight.title === 'Cursos com Baixo Engajamento' && insight.data?.length > 0 && (
+                          <div className="mt-4 space-y-2">
+                            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                              Cursos afetados:
+                            </p>
+                            {insight.data.map((item, i) => {
+                              const cid = item.course?.explorer_level || item.course?.id;
+                              const fb = feedbackSummary[cid];
+                              return (
+                                <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-orange-50 border border-orange-100">
+                                  <span className="text-sm font-medium text-orange-800">
+                                    {item.course?.title || cid}
+                                  </span>
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-xs text-orange-600">
+                                      Progresso médio: {Math.round(item.avgProgress)}%
+                                    </span>
+                                    {fb?.count > 0 && (
+                                      <Badge className="bg-yellow-100 text-yellow-800 border-0 text-xs">
+                                        <Star className="w-3 h-3 mr-1" fill="#FFC857" stroke="#FFC857" />
+                                        {fb.avgRating} ({fb.count} avaliações)
+                                      </Badge>
+                                    )}
+                                    {fb?.count === 0 && (
+                                      <Badge variant="outline" className="text-xs text-gray-500">
+                                        Sem avaliações
+                                      </Badge>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -490,7 +562,6 @@ export default function AnalyticsPage() {
                     {Object.entries(insights.find(i => i.title === 'Perfil VARK Predominante').data).map(([style, count]) => {
                       const total = students.length;
                       const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
-                      
                       const styleLabels = {
                         visual: { name: 'Visual', color: 'var(--info)' },
                         auditory: { name: 'Auditivo', color: 'var(--success)' },
@@ -498,9 +569,7 @@ export default function AnalyticsPage() {
                         kinesthetic: { name: 'Cinestésico', color: 'var(--accent-orange)' },
                         multimodal: { name: 'Multimodal', color: 'var(--primary-teal)' }
                       };
-
                       const styleInfo = styleLabels[style];
-                      
                       return (
                         <div key={style}>
                           <div className="flex items-center justify-between mb-2">
@@ -511,11 +580,7 @@ export default function AnalyticsPage() {
                               {count} alunos ({percentage}%)
                             </span>
                           </div>
-                          <Progress 
-                            value={percentage} 
-                            className="h-3"
-                            style={{ '--progress-color': styleInfo.color }}
-                          />
+                          <Progress value={percentage} className="h-3" style={{ '--progress-color': styleInfo.color }} />
                         </div>
                       );
                     })}
@@ -534,12 +599,41 @@ export default function AnalyticsPage() {
                     </div>
                   </div>
                 ) : (
-                  <p style={{ color: 'var(--text-secondary)' }}>
-                    Dados insuficientes para análise VARK
-                  </p>
+                  <p style={{ color: 'var(--text-secondary)' }}>Dados insuficientes para análise VARK</p>
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Nova aba: Feedback por Curso */}
+          <TabsContent value="feedback" className="mt-6">
+            <div className="space-y-6">
+              {Object.entries(COURSE_NAMES).map(([courseId, courseName]) => {
+                const fb = feedbackSummary[courseId];
+                return (
+                  <Card key={courseId} className="card-innova border-none">
+                    <CardHeader style={{ backgroundColor: 'var(--neutral-light)' }}>
+                      <CardTitle className="font-heading flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <MessageSquare className="w-5 h-5" style={{ color: 'var(--primary-teal)' }} />
+                          {courseName}
+                        </div>
+                        {fb?.avgRating && (
+                          <Badge className="bg-yellow-100 text-yellow-800 border-0">
+                            <Star className="w-3 h-3 mr-1" fill="#FFC857" stroke="#FFC857" />
+                            {fb.avgRating} / 5 &nbsp;·&nbsp; {fb.count} avaliações
+                            {fb.avgContent && <span className="ml-2 text-xs opacity-70">· Conteúdo: {fb.avgContent}★</span>}
+                          </Badge>
+                        )}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <CourseFeedbackPanel courseId={courseId} user={user} />
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
           </TabsContent>
         </Tabs>
 
@@ -570,8 +664,8 @@ export default function AnalyticsPage() {
                     <p style={{ color: 'var(--text-secondary)' }}>Personalização</p>
                   </div>
                   <div>
-                    <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>Ações</p>
-                    <p style={{ color: 'var(--text-secondary)' }}>Recomendadas</p>
+                    <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>Feedback</p>
+                    <p style={{ color: 'var(--text-secondary)' }}>Alunos & Instrutores</p>
                   </div>
                 </div>
               </div>
