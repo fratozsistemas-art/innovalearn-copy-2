@@ -321,7 +321,7 @@ function LayoutContent({ children, currentPageName }) {
                 variant="ghost" 
                 size="sm" 
                 onClick={handleLogout}
-                className="flex items-center gap-2 hover:bg-red-50 text-red-600"
+                className="flex items-center gap-2 hover:bg-white/10 text-[#FCA5A5]"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="text-sm font-medium">Sair</span>
