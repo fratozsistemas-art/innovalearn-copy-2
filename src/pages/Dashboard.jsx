@@ -124,14 +124,10 @@ export default function DashboardPage() {
   });
 
   const { data: assignments = [], isLoading: assignmentsLoading } = useQuery({
-    queryKey: ['assignments', user?.email, 'pending', 'top5'],
+    queryKey: ['assignments', user?.email, 'all'],
     queryFn: async () => {
       if (!user?.email) return [];
-      
-      const data = await base44.entities.Assignment.filter({ 
-        student_email: user.email,
-        status: 'pending'
-      }, '-due_date', 5);
+      const data = await base44.entities.Assignment.filter({ student_email: user.email }, '-due_date', 50);
       return data;
     },
     enabled: !!user?.email,
