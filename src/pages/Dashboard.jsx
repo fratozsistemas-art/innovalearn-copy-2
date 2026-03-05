@@ -258,7 +258,7 @@ export default function DashboardPage() {
               <TabsTrigger value="ranking" className="flex items-center gap-2 font-semibold text-[#4B5563] data-[state=active]:text-[#007A72] data-[state=active]:border-b-2 data-[state=active]:border-[#007A72]">
                 <Trophy className="w-4 h-4" /> Ranking
                 {gamificationProfile?.innova_coins > 0 && (
-                  <Badge className="bg-yellow-100 text-yellow-700 border-0 text-xs ml-1">
+                  <Badge className="bg-[#FFF8E1] text-[#8A6200] border border-[#FFC857] text-xs ml-1">
                     🪙 {(gamificationProfile.innova_coins || 0).toLocaleString()}
                   </Badge>
                 )}
