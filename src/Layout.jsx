@@ -287,7 +287,7 @@ function LayoutContent({ children, currentPageName }) {
             {/* Debug section for admins */}
             {user?.user_type === 'administrador' && (
               <SidebarGroup>
-                <SidebarGroupLabel className="text-xs font-semibold text-red-500 uppercase tracking-wider px-4 py-2">
+                <SidebarGroupLabel className="text-xs font-semibold text-[#F87171] uppercase tracking-wider px-4 py-2">
                   Debug
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
