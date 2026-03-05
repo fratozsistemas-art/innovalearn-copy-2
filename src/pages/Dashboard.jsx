@@ -18,6 +18,8 @@ import QuickStats from "../components/dashboard/QuickStats";
 import UpcomingAssignments from "../components/dashboard/UpcomingAssignments";
 import SmartRecommendations from "../components/recommendations/SmartRecommendations";
 import AICoachWidget from "../components/dashboard/AICoachWidget";
+import StudentInsights from "../components/dashboard/StudentInsights";
+import OverdueAssignments from "../components/dashboard/OverdueAssignments";
 
 const levelInfo = {
   curiosity: { name: 'Curiosity', color: 'var(--info)', totalModules: 4, age: '6+' },
