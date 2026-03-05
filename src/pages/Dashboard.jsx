@@ -247,43 +247,160 @@ export default function DashboardPage() {
           <QuickStats icon={Award} title="Conquistas" value={completedAssignments} subtitle="Tarefas completas" color="var(--accent-yellow)" navigateTo={createPageUrl("Gamification")} />
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {user?.onboarding_completed && (
-            <div className="lg:col-span-1">
-              <AICoachWidget userEmail={user?.email} />
-            </div>
-          )}
-          <div className={user?.onboarding_completed ? "lg:col-span-2" : "lg:col-span-3"}>
-            <CourseProgress enrollments={enrollments} modules={modules} hasActiveEnrollment={hasActiveEnrollment} currentLevel={currentLevel} />
-          </div>
-        </div>
+        {/* Tabs for students: Overview vs Ranking */}
+        {!isEducator ? (
+          <Tabs defaultValue="overview">
+            <TabsList className="bg-white shadow-sm border border-gray-200 mb-2">
+              <TabsTrigger value="overview" className="flex items-center gap-2">
+                <LayoutDashboard className="w-4 h-4" /> Meu Painel
+              </TabsTrigger>
+              <TabsTrigger value="ranking" className="flex items-center gap-2">
+                <Trophy className="w-4 h-4" /> Ranking
+                {gamificationProfile?.innova_coins > 0 && (
+                  <Badge className="bg-yellow-100 text-yellow-700 border-0 text-xs ml-1">
+                    🪙 {(gamificationProfile.innova_coins || 0).toLocaleString()}
+                  </Badge>
+                )}
+              </TabsTrigger>
+            </TabsList>
 
-        {/* Student-specific: Insights + Overdue + Recommendations */}
-        {!isEducator && (
-          <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-1">
-              <StudentInsights user={user} enrollments={enrollments} assignments={assignments} />
+            <TabsContent value="overview" className="space-y-6 mt-0">
+              <div className="grid lg:grid-cols-3 gap-6">
+                {user?.onboarding_completed && (
+                  <div className="lg:col-span-1">
+                    <AICoachWidget userEmail={user?.email} />
+                  </div>
+                )}
+                <div className={user?.onboarding_completed ? "lg:col-span-2" : "lg:col-span-3"}>
+                  <CourseProgress enrollments={enrollments} modules={modules} hasActiveEnrollment={hasActiveEnrollment} currentLevel={currentLevel} />
+                </div>
+              </div>
+
+              <div className="grid lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-1">
+                  <StudentInsights user={user} enrollments={enrollments} assignments={assignments} />
+                </div>
+                <div className="lg:col-span-1">
+                  <OverdueAssignments assignments={assignments} />
+                </div>
+                <div className="lg:col-span-1">
+                  <SmartRecommendations userId={user?.id} limit={3} />
+                </div>
+              </div>
+
+              <div className="grid lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2">
+                  <UpcomingAssignments assignments={assignments.filter(a => a.status === 'pending' && new Date(a.due_date) >= new Date()).slice(0, 5)} />
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="ranking" className="mt-0">
+              <div className="grid lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2">
+                  <Card className="card-innova border-none shadow-lg">
+                    <CardHeader style={{ backgroundColor: 'var(--neutral-light)', borderBottom: '1px solid var(--neutral-medium)' }}>
+                      <CardTitle className="font-heading flex items-center gap-2">
+                        <Trophy className="w-5 h-5 text-yellow-500" />
+                        Ranking de Exploradores
+                      </CardTitle>
+                      <p className="text-sm text-gray-500">Compete e sobe no ranking conquistando Innova Coins!</p>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <DashboardRanking
+                        currentUserEmail={user?.email}
+                        explorerLevel={user?.explorer_level}
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+                <div className="lg:col-span-1 space-y-4">
+                  {/* How to earn coins */}
+                  <Card className="border-none shadow-lg">
+                    <CardHeader className="bg-gray-50 border-b border-gray-200 pb-3">
+                      <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                        🪙 Como Ganhar Coins
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-4">
+                      <div className="space-y-2">
+                        {[
+                          { action: 'Completar Aula', coins: 100, icon: '📚' },
+                          { action: 'Quiz Perfeito', coins: 75, icon: '✅' },
+                          { action: 'Completar Módulo', coins: 500, icon: '🏆' },
+                          { action: 'Ajudar Colega', coins: 50, icon: '🤝' },
+                          { action: 'Apresentação', coins: 300, icon: '🎤' },
+                          { action: 'Login Diário', coins: 10, icon: '📅' },
+                        ].map((item, i) => (
+                          <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 text-sm">
+                            <span className="flex items-center gap-2">
+                              <span>{item.icon}</span>
+                              <span className="text-gray-700">{item.action}</span>
+                            </span>
+                            <span className="font-bold text-orange-500">+{item.coins} 🪙</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* My Gamification Badge Preview */}
+                  {gamificationProfile && (
+                    <Card className="border-none shadow-lg bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-200">
+                      <CardContent className="p-4 text-center">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mx-auto mb-2 shadow-lg">
+                          <Trophy className="w-8 h-8 text-white" />
+                        </div>
+                        <p className="font-bold text-gray-800">Nível {gamificationProfile.level || 1}</p>
+                        <p className="text-2xl font-bold text-orange-500 my-1">{(gamificationProfile.innova_coins || 0).toLocaleString()} 🪙</p>
+                        <p className="text-xs text-gray-500 mb-3">Innova Coins acumulados</p>
+                        {(gamificationProfile.badges || []).length > 0 && (
+                          <div className="flex justify-center flex-wrap gap-1">
+                            {(gamificationProfile.badges || []).slice(0, 5).map((b, i) => (
+                              <span key={i} className="text-xl" title={b.badge_id}>{
+                                { 'eco-warrior': '🌱', 'space-explorer': '🚀', 'ai-artist': '🎨', 'young-entrepreneur': '💡', 'team-player': '🤝', 'code-master': '💻', 'streak-champion': '🔥', 'helper-hero': '🦸' }[b.badge_id] || '🏅'
+                              }</span>
+                            ))}
+                          </div>
+                        )}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="mt-3 w-full"
+                          onClick={() => navigate(createPageUrl("Gamification"))}
+                        >
+                          Ver perfil completo
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        ) : (
+          /* Educator view - no tabs */
+          <>
+            <div className="grid lg:grid-cols-3 gap-6">
+              {user?.onboarding_completed && (
+                <div className="lg:col-span-1">
+                  <AICoachWidget userEmail={user?.email} />
+                </div>
+              )}
+              <div className={user?.onboarding_completed ? "lg:col-span-2" : "lg:col-span-3"}>
+                <CourseProgress enrollments={enrollments} modules={modules} hasActiveEnrollment={hasActiveEnrollment} currentLevel={currentLevel} />
+              </div>
             </div>
-            <div className="lg:col-span-1">
-              <OverdueAssignments assignments={assignments} />
+            <div className="grid lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2">
+                <UpcomingAssignments assignments={assignments.filter(a => a.status === 'pending' && new Date(a.due_date) >= new Date()).slice(0, 5)} />
+              </div>
+              <div>
+                <SmartRecommendations userId={user?.id} limit={3} />
+              </div>
             </div>
-            <div className="lg:col-span-1">
-              <SmartRecommendations userId={user?.id} limit={3} />
-            </div>
-          </div>
+          </>
         )}
-
-        {/* Upcoming assignments for all */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <UpcomingAssignments assignments={assignments.filter(a => a.status === 'pending' && new Date(a.due_date) >= new Date()).slice(0, 5)} />
-          </div>
-          {isEducator && (
-            <div>
-              <SmartRecommendations userId={user?.id} limit={3} />
-            </div>
-          )}
-        </div>
 
       </div>
     </div>
