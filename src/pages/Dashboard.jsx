@@ -308,7 +308,7 @@ export default function DashboardPage() {
                         <Trophy className="w-5 h-5 text-yellow-500" />
                         Ranking de Exploradores
                       </CardTitle>
-                      <p className="text-sm text-gray-500">Compete e sobe no ranking conquistando Innova Coins!</p>
+                      <p className="text-sm text-[#4B5563]">Compete e sobe no ranking conquistando Innova Coins!</p>
                     </CardHeader>
                     <CardContent className="p-6">
                       <DashboardRanking
