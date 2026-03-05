@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Resource, ExternalResource } from "@/entities/all";
+import { base44 } from "@/api/base44Client";
+const Resource = base44.entities.Resource;
+const ExternalResource = base44.entities.ExternalResource;
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
