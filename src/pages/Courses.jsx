@@ -506,6 +506,15 @@ export default function CoursesPage() {
                       transition={{ duration: 0.3 }}
                       className="mt-4 space-y-4"
                     >
+                      {/* Feedback Section for students */}
+                      {(isEnrolled || isEducator) && (
+                        <Card className="border border-gray-200">
+                          <CardContent className="p-4">
+                            <CourseFeedbackPanel courseId={courseId} user={user} />
+                          </CardContent>
+                        </Card>
+                      )}
+
                       {course.modules.map((module) => {
                         const enrollment = getEnrollmentForModule(module.id);
                         const isModuleEnrolled = isEnrolledInModule(module.id);
