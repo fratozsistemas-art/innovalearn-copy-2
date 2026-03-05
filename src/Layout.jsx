@@ -211,7 +211,7 @@ function LayoutContent({ children, currentPageName }) {
     return (
       <SidebarGroup key={groupLabel || 'default'}>
         {groupLabel && (
-          <SidebarGroupLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-4 py-2">
+          <SidebarGroupLabel className="text-xs font-semibold text-[#9CA3AF] uppercase tracking-wider px-4 py-2">
             {groupLabel}
           </SidebarGroupLabel>
         )}
