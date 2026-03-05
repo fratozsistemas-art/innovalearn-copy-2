@@ -441,11 +441,10 @@ const sidebarMenuButtonVariants = cva(
   }
 )
 
-function SidebarMenuButtonComponent({ asChild, isActive, variant, size, tooltip, className, ...props }, ref) {
-  asChild = asChild === undefined ? false : asChild;
-  isActive = isActive === undefined ? false : isActive;
-  variant = variant === undefined ? "default" : variant;
-  size = size === undefined ? "default" : size;
+function SidebarMenuButtonComponent(
+  { asChild = false, isActive = false, variant = "default", size = "default", tooltip, className, ...props },
+  ref
+) {
   const Comp = asChild ? Slot : "button"
   const { isMobile, state } = useSidebar()
 
