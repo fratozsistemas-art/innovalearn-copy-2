@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Course, Enrollment, Assignment, User as UserEntity } from "@/entities/all";
-import { User } from "@/entities/User";
+import { base44 } from "@/api/base44Client";
+const Course = base44.entities.Course;
+const Enrollment = base44.entities.Enrollment;
+const Assignment = base44.entities.Assignment;
+const UserEntity = base44.entities.User;
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -187,7 +190,7 @@ export default function AnalyticsPage() {
 
   const loadAnalytics = useCallback(async () => {
     setLoading(true);
-    const userData = await User.me();
+    const userData = await base44.auth.me();
     setUser(userData);
 
     if (!['administrador', 'coordenador_pedagogico', 'instrutor'].includes(userData.user_type)) {
